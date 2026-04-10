@@ -1,0 +1,61 @@
+:root {
+  /* Color System */
+  --color-bg: #fafafa;
+  --color-text: #1a1a1a;
+  --color-accent: #2a5540;
+  
+  /* Layout */
+  --max-width: 1200px;
+  --spacing-base: 1rem;
+  
+  /* Typography Scale */
+  --font-serif: Georgia, 'Times New Roman', serif;
+  --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* CSS Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* Typography Base */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  line-height: 1.2;
+  font-weight: 400;
+}
+
+/* Container System */
+.container {
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: calc(var(--spacing-base) * 1.5);
+  padding-right: calc(var(--spacing-base) * 1.5);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: calc(var(--spacing-base) * 3);
+    padding-right: calc(var(--spacing-base) * 3);
+  }
+}

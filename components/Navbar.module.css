@@ -1,0 +1,110 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: rgba(250, 250, 250, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(26, 26, 26, 0.06);
+  transition: all 0.2s ease;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: calc(var(--spacing-base) * 1.25) calc(var(--spacing-base) * 1.5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--color-text);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  transition: opacity 0.2s ease;
+}
+
+.brand:hover {
+  opacity: 0.7;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing-base) * 2);
+}
+
+.link {
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--color-text);
+  text-decoration: none;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+
+.link:hover {
+  opacity: 1;
+}
+
+.linkCta {
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-accent);
+  text-decoration: none;
+  padding: calc(var(--spacing-base) * 0.5) calc(var(--spacing-base) * 1.25);
+  border: 1px solid var(--color-accent);
+  transition: all 0.2s ease;
+}
+
+.linkCta:hover {
+  background-color: var(--color-accent);
+  color: #ffffff;
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  .container {
+    padding: calc(var(--spacing-base) * 1.5) calc(var(--spacing-base) * 3);
+  }
+
+  .brand {
+    font-size: 1.375rem;
+  }
+
+  .links {
+    gap: calc(var(--spacing-base) * 2.5);
+  }
+
+  .link,
+  .linkCta {
+    font-size: 1rem;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .links {
+    gap: calc(var(--spacing-base) * 1.25);
+  }
+
+  .link {
+    display: none;
+  }
+
+  .link:last-of-type {
+    display: block;
+  }
+
+  .linkCta {
+    font-size: 0.875rem;
+    padding: calc(var(--spacing-base) * 0.4) calc(var(--spacing-base) * 1);
+  }
+}
