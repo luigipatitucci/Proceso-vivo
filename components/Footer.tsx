@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import styles from './Footer.module.css';
 
 export default function Footer() {
@@ -6,7 +7,13 @@ export default function Footer() {
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.brand}>
-            <h3 className={styles.brandName}>Proceso Vivo</h3>
+            <Image
+              src="/images/logo-footer.png"
+              alt="Proceso Vivo"
+              width={190}
+              height={45}
+              className={styles.logo}
+            />
             <p className={styles.tagline}>
               Un espacio para procesar lo que se repite, desde un lugar de responsabilidad y conciencia.
             </p>
@@ -14,8 +21,8 @@ export default function Footer() {
 
           <div className={styles.contact}>
             <h4 className={styles.contactHeading}>Contacto</h4>
-            <a href="mailto:contacto@procesovivo.com" className={styles.contactLink}>
-              contacto@procesovivo.com
+            <a href="mailto:maria.delcastiloo@gmail.com" className={styles.contactLink}>
+              maria.delcastiloo@gmail.com
             </a>
             <a href="tel:+5491112345678" className={styles.contactLink}>
               +54 9 11 1234-5678
@@ -35,9 +42,6 @@ export default function Footer() {
         <div className={styles.bottom}>
           <p className={styles.copyright}>
             © {new Date().getFullYear()} Proceso Vivo. Todos los derechos reservados.
-          </p>
-          <p className={styles.note}>
-            Este método no reemplaza el tratamiento médico o psiquiátrico cuando es necesario.
           </p>
         </div>
       </div>

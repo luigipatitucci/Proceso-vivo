@@ -1,14 +1,58 @@
 .section {
-  padding: calc(var(--spacing-base) * 8) 0;
-  background-color: var(--color-bg);
+  padding: calc(var(--spacing-base) * 6) 0 calc(var(--spacing-base) * 7);
+  background: 
+    radial-gradient(circle at 20% 35%, rgba(42, 85, 64, 0.07), transparent 40%),
+    radial-gradient(circle at 80% 65%, rgba(195, 51, 139, 0.06), transparent 38%),
+    linear-gradient(170deg, var(--surface-blue-light) 0%, var(--surface-bone) 40%, var(--surface-warm) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Floating decorative shapes */
+.decorativeShape1 {
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(195, 51, 139, 0.04) 0%, transparent 70%);
+  border-radius: 50% 45% 55% 50%;
+  pointer-events: none;
+  animation: float 25s ease-in-out infinite;
+  z-index: 0;
+}
+
+.decorativeShape2 {
+  position: absolute;
+  bottom: 15%;
+  left: 8%;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(42, 85, 64, 0.05) 0%, transparent 70%);
+  border-radius: 55% 50% 45% 55%;
+  pointer-events: none;
+  animation: float 30s ease-in-out infinite reverse;
+  z-index: 0;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-30px) rotate(5deg);
+  }
 }
 
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 calc(var(--spacing-base) * 1.5);
+  position: relative;
+  z-index: 1;
 }
 
+/* Intro */
 .intro {
   max-width: 720px;
   margin: 0 auto calc(var(--spacing-base) * 6);
@@ -17,125 +61,446 @@
 
 .mainHeading {
   font-family: var(--font-serif);
-  font-size: 2.5rem;
-  line-height: 1.2;
+  font-size: 2.25rem;
+  line-height: 1.25;
   font-weight: 400;
-  color: var(--color-text);
+  color: #2b2b2b;
   margin-bottom: calc(var(--spacing-base) * 2);
   letter-spacing: -0.02em;
 }
 
 .introParagraph {
   font-family: var(--font-sans);
-  font-size: 1.125rem;
-  line-height: 1.7;
+  font-size: 1.0625rem;
+  line-height: 1.75;
   font-weight: 300;
-  color: var(--color-text);
-  opacity: 0.85;
+  color: #4a4a4a;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: calc(var(--spacing-base) * 4);
-  margin-bottom: calc(var(--spacing-base) * 6);
+/* Content Block */
+.contentBlock {
+  max-width: 900px;
+  margin: 0 auto calc(var(--spacing-base) * 6);
 }
 
-.block {
-  background-color: transparent;
-  padding: calc(var(--spacing-base) * 3);
-  border-left: 3px solid var(--color-accent);
+/* Toggle Container  */
+.toggleContainer {
+  text-align: center;
+  margin-bottom: calc(var(--spacing-base) * 4);
+  position: relative;
+  z-index: 2;
 }
 
-.blockHeading {
-  font-family: var(--font-serif);
-  font-size: 1.75rem;
-  line-height: 1.3;
-  font-weight: 400;
-  color: var(--color-text);
-  margin-bottom: calc(var(--spacing-base) * 2.5);
+/* Star Animation */
+.accentStar {
+  font-size: 1.5rem;
+  color: var(--color-magenta);
+  margin-bottom: calc(var(--spacing-base) * 1.25);
+  opacity: 0.6;
+  display: inline-block;
+  transform: translateY(0) scale(1);
+  animation: starFloat 7s ease-in-out infinite;
 }
 
-.content {
+.toggleContainer:not(.headerVisible) .accentStar {
+  opacity: 0;
+  transform: translateY(20px) scale(0.8);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.headerVisible .accentStar {
+  opacity: 0.6;
+  transform: translateY(0) scale(1);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+@keyframes starFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(12deg);
+  }
+}
+
+/* Editorial Toggle Navigation */
+.toggleNav {
   display: flex;
   flex-direction: column;
-  gap: calc(var(--spacing-base) * 1.75);
+  gap: calc(var(--spacing-base) * 1.5);
+  margin-bottom: calc(var(--spacing-base) * 2);
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.item {
+/* Keep animation for progressive enhancement */
+.toggleContainer:not(.headerVisible) .toggleNav {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s;
+}
+
+.headerVisible .toggleNav {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s;
+}
+
+/* Editorial Toggle Buttons */
+.toggle {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  line-height: 1.3;
+  font-weight: 400;
+  color: #999999;
+  opacity: 0.5;
+  letter-spacing: -0.015em;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: calc(var(--spacing-base) * 1) 0;
+  position: relative;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.toggle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-magenta);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle:hover {
+  color: #666666;
+  opacity: 0.75;
+}
+
+.toggle.toggleActive {
+  color: var(--color-magenta);
+  opacity: 1;
+  font-weight: 400;
+}
+
+.toggle.toggleActive::after {
+  width: 4rem;
+}
+
+/* Secondary toggle styling  */
+.toggle.toggleSecondary {
+  font-size: 1.375rem;
+}
+
+.toggle.toggleSecondary.toggleActive {
+  color: var(--color-accent);
+}
+
+.toggle.toggleSecondary.toggleActive::after {
+  width: 3.5rem;
+  background: var(--color-accent);
+}
+
+/* Toggle Subtext */
+.toggleSubtext {
   font-family: var(--font-sans);
-  font-size: 1.0625rem;
-  line-height: 1.65;
+  font-size: 0.9375rem;
+  line-height: 1.6;
   font-weight: 300;
-  color: var(--color-text);
-  opacity: 0.88;
-  max-width: 540px;
-  padding-left: calc(var(--spacing-base) * 1.5);
+  color: #5a5a5a;
+  opacity: 1;
+  transform: translateY(0);
+  font-style: italic;
+}
+
+.toggleContainer:not(.headerVisible) .toggleSubtext {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+}
+
+.headerVisible .toggleSubtext {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+}
+
+/* List Container */
+.listContainer {
+  position: relative;
+  min-height: 400px;
+  animation: fadeInList 0.5s ease;
+}
+
+@keyframes fadeInList {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.listContainer.secondaryMode .itemNumber {
+  opacity: 0.4;
+  color: #666666;
+}
+
+.listContainer.secondaryMode .listItem:hover .itemNumber,
+.listContainer.secondaryMode .listItem:focus-visible .itemNumber {
+  opacity: 0.7;
+  color: #5a5a5a;
+}
+
+.listContainer.secondaryMode .itemText {
+  color: #5a5a5a;
+}
+
+.listContainer.secondaryMode .listItem:hover .itemText,
+.listContainer.secondaryMode .listItem:focus-visible .itemText {
+  color: #4a4a4a;
+}
+
+.listContainer.secondaryMode .itemAccent {
+  background: linear-gradient(90deg, rgba(42, 85, 64, 0.5) 0%, transparent 100%);
+}
+
+.listContainer.secondaryMode .verticalLine {
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    rgba(42, 85, 64, 0.15) 10%, 
+    rgba(42, 85, 64, 0.15) 90%, 
+    transparent 100%
+  );
+}
+
+/* Item List */
+.itemList {
+  position: relative;
+  padding-left: calc(var(--spacing-base) * 4);
+}
+
+/* Vertical Line */
+.verticalLine {
+  position: absolute;
+  left: calc(var(--spacing-base) * 1.25);
+  top: 3%;
+  width: 2px;
+  height: 0;
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    rgba(42, 85, 64, 0.25) 10%, 
+    rgba(42, 85, 64, 0.25) 90%, 
+    transparent 100%
+  );
+  border-radius: 2px;
+  transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.verticalLine.lineVisible {
+  height: 94%;
+}
+
+/* List Item */
+.listItem {
+  padding: calc(var(--spacing-base) * 2.75) 0;
+  margin-bottom: calc(var(--spacing-base) * 0.5);
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--spacing-base) * 2.5);
+  outline: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+}
+
+.listItem.itemVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.listItem:hover,
+.listItem:focus-visible {
+  transform: translateY(-6px);
+}
+
+.listItem.itemFaded {
+  opacity: 0.3;
+}
+
+/* Item Number */
+.itemNumber {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  min-width: 2.5rem;
+  transition: all 0.3s ease;
+  margin-top: 0.25rem;
+  opacity: 0.5;
+  letter-spacing: -0.02em;
+}
+
+.listItem:hover .itemNumber,
+.listItem:focus-visible .itemNumber {
+  color: var(--color-magenta);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Item Content */
+.itemContent {
+  flex: 1;
   position: relative;
 }
 
-.item::before {
-  content: '—';
-  position: absolute;
-  left: 0;
-  color: var(--color-accent);
-  opacity: 0.6;
+.itemText {
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  font-weight: 300;
+  color: #3a3a3a;
+  margin: 0;
+  transition: color 0.3s ease;
 }
 
+.listItem:hover .itemText,
+.listItem:focus-visible .itemText {
+  color: #2b2b2b;
+}
+
+/* Item Accent Line */
+.itemAccent {
+  width: 4rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-magenta) 0%, transparent 100%);
+  margin-top: 1rem;
+  opacity: 0.7;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.listItem:hover .itemAccent,
+.listItem:focus-visible .itemAccent {
+  transform: scaleX(1);
+}
+
+/* Closing */
 .closing {
-  max-width: 680px;
+  max-width: 700px;
   margin: 0 auto;
-  padding: calc(var(--spacing-base) * 3);
-  border-top: 1px solid rgba(26, 26, 26, 0.12);
-  border-bottom: 1px solid rgba(26, 26, 26, 0.12);
+  padding: calc(var(--spacing-base) * 3) calc(var(--spacing-base) * 2);
+  border-top: 1px solid rgba(42, 85, 64, 0.15);
+  position: relative;
+}
+
+.closing::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3rem;
+  height: 2px;
+  background: var(--color-magenta);
+  opacity: 0.4;
 }
 
 .closingText {
   font-family: var(--font-sans);
-  font-size: 1rem;
-  line-height: 1.7;
-  font-weight: 400;
-  color: var(--color-text);
-  opacity: 0.85;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  font-weight: 300;
+  color: #5a5a5a;
   text-align: center;
+  font-style: italic;
 }
 
 /* Tablet and up */
 @media (min-width: 768px) {
+  .section {
+    padding: calc(var(--spacing-base) * 7) 0 calc(var(--spacing-base) * 8);
+  }
+
+  .decorativeShape1 {
+    width: 240px;
+    height: 240px;
+  }
+
+  .decorativeShape2 {
+    width: 200px;
+    height: 200px;
+  }
+
   .container {
     padding: 0 calc(var(--spacing-base) * 3);
   }
 
+  .intro {
+    margin-bottom: calc(var(--spacing-base) * 7);
+  }
+
   .mainHeading {
-    font-size: 3rem;
+    font-size: 2.75rem;
   }
 
   .introParagraph {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
   }
 
-  .grid {
-    grid-template-columns: 1fr 1fr;
-    gap: calc(var(--spacing-base) * 5);
+  .toggleNav {
+    flex-direction: row;
+    justify-content: center;
+    gap: calc(var(--spacing-base) * 4);
   }
 
-  .blockHeading {
-    font-size: 2rem;
+  .toggle {
+    font-size: 1.75rem;
+    text-align: center;
   }
 
-  .item {
+  .toggle.toggleSecondary {
+    font-size: 1.5rem;
+  }
+
+  .toggleSubtext {
+    font-size: 1rem;
+  }
+
+  .itemList {
+    padding-left: calc(var(--spacing-base) * 5);
+  }
+
+  .listItem {
+    padding: calc(var(--spacing-base) * 3) 0;
+    gap: calc(var(--spacing-base) * 3);
+  }
+
+  .itemNumber {
+    font-size: 1.125rem;
+  }
+
+  .itemText {
     font-size: 1.125rem;
   }
 
   .closingText {
-    font-size: 1.0625rem;
+    font-size: 1rem;
   }
 }
 
 /* Desktop and up */
 @media (min-width: 1024px) {
   .section {
-    padding: calc(var(--spacing-base) * 10) 0;
+    padding: calc(var(--spacing-base) * 8) 0 calc(var(--spacing-base) * 9);
   }
 
   .intro {
@@ -146,15 +511,33 @@
     font-size: 3.25rem;
   }
 
-  .grid {
-    gap: calc(var(--spacing-base) * 6);
+  .contentBlock {
+    margin-bottom: calc(var(--spacing-base) * 7);
   }
 
-  .block {
-    padding: calc(var(--spacing-base) * 3.5);
+  .toggle {
+    font-size: 2rem;
+  }
+
+  .toggle.toggleSecondary {
+    font-size: 1.75rem;
+  }
+
+  .toggleSubtext {
+    font-size: 1.0625rem;
+  }
+
+  .itemText {
+    font-size: 1.1875rem;
+    line-height: 1.8;
   }
 
   .closing {
-    padding: calc(var(--spacing-base) * 3.5);
+    padding: calc(var(--spacing-base) * 4) calc(var(--spacing-base) * 2);
+  }
+
+  .closingText {
+    font-size: 1.0625rem;
   }
 }
+

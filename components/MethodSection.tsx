@@ -1,57 +1,142 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
 import styles from './MethodSection.module.css';
 
 export default function MethodSection() {
+  const [leftVisible, setLeftVisible] = useState(false);
+  const [rightVisible, setRightVisible] = useState(false);
+
+  const leftRef = useRef<HTMLDivElement>(null);
+  const rightRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const leftObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setLeftVisible(true);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    const rightObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setRightVisible(true);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (leftRef.current) leftObserver.observe(leftRef.current);
+    if (rightRef.current) rightObserver.observe(rightRef.current);
+
+    return () => {
+      leftObserver.disconnect();
+      rightObserver.disconnect();
+    };
+  }, []);
+
   return (
     <section id="metodo" className={styles.section}>
+      <div className={styles.organicShape} />
+
       <div className={styles.container}>
-        <div className={styles.intro}>
+        <div className={`${styles.intro} reveal-fade-up ${leftVisible ? 'is-visible' : ''}`}>
           <h2 className={styles.mainHeading}>¿Cómo trabaja el método?</h2>
           <p className={styles.introParagraph}>
-            Proceso Vivo aborda a la persona como un sistema vivo donde lo mental, lo emocional, lo corporal y lo energético están integrados. El trabajo se sostiene en dos niveles complementarios que dialogan entre sí durante todo el proceso.
+            El trabajo integra dos dimensiones complementarias. No se trata de
+            etapas separadas ni de técnicas aisladas, sino de un diálogo
+            continuo entre comprender y procesar, entre hacer consciente y
+            permitir que algo se mueva.
           </p>
         </div>
 
-        <div className={styles.grid}>
-          <div className={styles.level}>
-            <div className={styles.levelHeader}>
-              <h3 className={styles.levelHeading}>Nivel estructural</h3>
-              <p className={styles.levelSubtitle}>Psicología clínica</p>
-            </div>
-            <div className={styles.levelContent}>
-              <p className={styles.levelParagraph}>
-                Desde la psicología clínica, trabajamos para identificar y comprender los patrones que sostienen el malestar: de dónde vienen, cómo se repiten, qué función cumplen.
-              </p>
-              <p className={styles.levelParagraph}>
-                Este nivel permite tomar conciencia de lo que está pasando, nombrar lo que antes no tenía nombre, y empezar a hacer responsable a la persona de su propio proceso.
-              </p>
-              <p className={styles.levelParagraph}>
-                No se trata solo de entender. Se trata de que esa comprensión sea un punto de partida para poder transformar.
-              </p>
-            </div>
-          </div>
+        <div className={styles.dimensionsWrapper}>
+          <div className={styles.dimensionsGrid}>
+            <div
+              ref={leftRef}
+              className={`${styles.dimension} reveal-fade-right ${
+                leftVisible ? 'is-visible' : ''
+              }`}
+            >
+              <div className={styles.dimensionInner}>
+                <h3 className={styles.dimensionHeading}>
+                  Comprender y <span className={styles.wordGreen}>nombrar</span>
+                </h3>
 
-          <div className={styles.level}>
-            <div className={styles.levelHeader}>
-              <h3 className={styles.levelHeading}>Nivel corporal y energético</h3>
-              <p className={styles.levelSubtitle}>Trabajo sobre el cuerpo</p>
+                <div className={styles.dimensionContent}>
+                  <p className={styles.dimensionParagraph}>
+                    Reconocer los patrones que sostienen lo que pasa. Darle
+                    palabras a lo que no tenía nombre. Hacer visible lo que
+                    antes operaba sin que pudieras verlo.
+                  </p>
+
+                  <p className={styles.dimensionParagraph}>
+                    No es solamente entender de manera intelectual. Es volver
+                    consciente algo que estaba funcionando en automático, y que
+                    por eso mismo se repetía.
+                  </p>
+
+                  <p className={styles.dimensionParagraph}>
+                    Esta dimensión no es un fin en sí misma. Es el punto de
+                    partida para que algo pueda moverse de otro modo.
+                  </p>
+                </div>
+
+                <div className={styles.accentLine} />
+              </div>
             </div>
-            <div className={styles.levelContent}>
-              <p className={styles.levelParagraph}>
-                Muchas veces lo que sostiene un patrón no está solo en lo que pensamos, sino en lo que el cuerpo registra y sostiene sin que lo sepamos conscientemente.
-              </p>
-              <p className={styles.levelParagraph}>
-                Este nivel trabaja con la dimensión corporal y energética de lo que está pasando, para que lo que quedó retenido pueda procesarse y liberarse de manera orgánica.
-              </p>
-              <p className={styles.levelParagraph}>
-                Aquí es donde entra el trabajo con un dispositivo terapéutico específico que acompaña este proceso de manera controlada y profesional.
-              </p>
+
+            <div
+              ref={rightRef}
+              className={`${styles.dimension} ${styles.dimensionRight} reveal-fade-left reveal-delay-2 ${
+                rightVisible ? 'is-visible' : ''
+              }`}
+            >
+              <div className={styles.dimensionInner}>
+                <h3 className={styles.dimensionHeading}>
+                  Procesar y{' '}
+                  <span className={styles.wordMagenta}>transformar</span>
+                </h3>
+
+                <div className={styles.dimensionContent}>
+                  <p className={styles.dimensionParagraph}>
+                    Hay cosas que no cambian solo porque las comprendas. Quedan
+                    sostenidas en el cuerpo, en capas más profundas de la
+                    experiencia, fuera del alcance de la palabra.
+                  </p>
+
+                  <p className={styles.dimensionParagraph}>
+                    Este trabajo no fuerza ni interpreta. Acompaña lo que está
+                    retenido para que pueda procesarse y liberarse
+                    orgánicamente, a su propio tiempo.
+                  </p>
+
+                  <p className={styles.dimensionParagraph}>
+                    En esta dimensión se integran herramientas específicas del
+                    método, dentro de un acompañamiento cuidado y profesional,
+                    para que algo pueda moverse desde adentro.
+                  </p>
+                </div>
+
+                <div className={styles.accentLine} />
+              </div>
             </div>
           </div>
         </div>
 
         <div className={styles.closing}>
           <p className={styles.closingText}>
-            Ambos niveles trabajan juntos. La integración entre lo que se comprende y lo que se procesa corporalmente es lo que permite que algo realmente se mueva, en lugar de quedarse solo en la idea de cambiar.
+            Ambas dimensiones trabajan juntas. No hay transformación real sin
+            comprensión, y la comprensión sin procesamiento se queda en la
+            superficie. La integración entre ambas es lo que permite que algo
+            realmente cambie.
           </p>
         </div>
       </div>

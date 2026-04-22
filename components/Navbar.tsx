@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
@@ -5,7 +6,14 @@ export default function Navbar() {
     <nav className={styles.navbar}>
       <div className={styles.container}>
         <a href="#" className={styles.brand}>
-          Proceso Vivo
+          <Image
+            src="/images/Logo.png"
+            alt="Proceso Vivo"
+            width={130}
+            height={40}
+            className={styles.logo}
+            priority
+          />
         </a>
         
         <div className={styles.links}>

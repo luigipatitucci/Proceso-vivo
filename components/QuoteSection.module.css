@@ -1,0 +1,118 @@
+.quoteSection {
+  padding: calc(var(--spacing-base) * 3) calc(var(--spacing-base) * 2);
+  background-color: transparent;
+}
+
+.quoteSection.compact {
+  padding: calc(var(--spacing-base) * 2.5) calc(var(--spacing-base) * 2);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: calc(var(--spacing-base) * 2);
+  position: relative;
+}
+
+.accentLine {
+  width: 2.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-magenta) 0%, transparent 100%);
+  margin-bottom: calc(var(--spacing-base) * 1.5);
+  opacity: 0.5;
+}
+
+.quote {
+  margin: 0;
+  max-width: 680px;
+}
+
+.quoteText {
+  font-family: Georgia, serif;
+  font-size: 1.375rem;
+  line-height: 1.65;
+  color: #3a3a3a;
+  margin: 0 0 calc(var(--spacing-base) * 1.25) 0;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  font-style: italic;
+  opacity: 0.92;
+}
+
+.author {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  font-style: normal;
+  color: #666666;
+  letter-spacing: 0.02em;
+  display: block;
+  opacity: 0.75;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .quoteSection {
+    padding: calc(var(--spacing-base) * 3.5) calc(var(--spacing-base) * 3);
+  }
+
+  .quoteSection.compact {
+    padding: calc(var(--spacing-base) * 2.75) calc(var(--spacing-base) * 3);
+  }
+
+  .container {
+    padding-left: calc(var(--spacing-base) * 3);
+  }
+
+  .accentLine {
+    width: 3rem;
+    margin-bottom: calc(var(--spacing-base) * 1.75);
+  }
+
+  .quoteText {
+    font-size: 1.5rem;
+    line-height: 1.7;
+    margin-bottom: calc(var(--spacing-base) * 1.5);
+  }
+
+  .author {
+    font-size: 0.875rem;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .quoteSection {
+    padding: calc(var(--spacing-base) * 4) calc(var(--spacing-base) * 4);
+  }
+
+  .quoteSection.compact {
+    padding: calc(var(--spacing-base) * 3) calc(var(--spacing-base) * 4);
+  }
+
+  .container {
+    padding-left: calc(var(--spacing-base) * 4);
+  }
+
+  .accentLine {
+    width: 3.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .quoteText {
+    font-size: 1.625rem;
+    line-height: 1.75;
+    margin-bottom: 1.75rem;
+  }
+
+  .author {
+    font-size: 0.9375rem;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1280px) {
+  .quoteText {
+    font-size: 1.75rem;
+  }
+}

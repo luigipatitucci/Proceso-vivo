@@ -1,6 +1,9 @@
 .section {
-  padding: calc(var(--spacing-base) * 10) 0;
-  background-color: rgba(42, 85, 64, 0.03);
+  padding: calc(var(--spacing-base) * 7) 0;
+  background: 
+    radial-gradient(circle at 50% 30%, rgba(42, 85, 64, 0.10), transparent 50%),
+    radial-gradient(circle at 50% 70%, rgba(195, 51, 139, 0.04), transparent 45%),
+    linear-gradient(180deg, var(--surface-green-tint) 0%, var(--surface-green-light) 100%);
 }
 
 .container {
@@ -35,20 +38,47 @@
 }
 
 .requirements {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: calc(var(--spacing-base) * 4);
-  margin-bottom: calc(var(--spacing-base) * 7);
-  text-align: left;
+  display: flex;
+  gap: calc(var(--spacing-base) * 2.5);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: calc(var(--spacing-base) * 1) calc(var(--spacing-base) * 2);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(42, 85, 64, 0.2) transparent;
+}
+
+.requirements::-webkit-scrollbar {
+  height: 6px;
+}
+
+.requirements::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.requirements::-webkit-scrollbar-thumb {
+  background: rgba(42, 85, 64, 0.2);
+  border-radius: 3px;
+}
+
+.requirements::-webkit-scrollbar-thumb:hover {
+  background: rgba(42, 85, 64, 0.35);
 }
 
 .requirement {
+  flex: 0 0 calc(100% - calc(var(--spacing-base) * 4));
+  scroll-snap-align: center;
   padding: calc(var(--spacing-base) * 2.5);
   background-color: #ffffff;
   border-left: 3px solid var(--color-accent);
-  max-width: 680px;
-  margin: 0 auto;
-  width: 100%;
+  border-radius: 0 2px 2px 0;
+  transition: all 0.3s ease;
+}
+
+.requirement:hover {
+  border-left-width: 4px;
+  box-shadow: 0 4px 16px rgba(42, 85, 64, 0.08);
+  transform: translateX(2px);
 }
 
 .requirementHeading {
@@ -69,58 +99,89 @@
   opacity: 0.88;
 }
 
-.closing {
-  max-width: 700px;
-  margin: 0 auto calc(var(--spacing-base) * 6);
+/* Single Emotional Phrase */
+.emotionalPhrase {
+  max-width: 720px;
+  margin: 0 auto calc(var(--spacing-base) * 7);
+  padding: calc(var(--spacing-base) * 5) calc(var(--spacing-base) * 2);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.closingText {
-  font-family: var(--font-sans);
-  font-size: 1.125rem;
-  line-height: 1.75;
+.emotionalPhrase.phraseVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.phraseText {
+  font-family: var(--font-serif);
+  font-size: 1.875rem;
+  line-height: 1.35;
   font-weight: 400;
   color: var(--color-text);
-  opacity: 0.88;
+  margin: 0;
+  letter-spacing: -0.015em;
 }
 
+/* CTA Block */
 .ctaBlock {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: calc(var(--spacing-base) * 1.5);
-  padding-top: calc(var(--spacing-base) * 4);
-  border-top: 1px solid rgba(26, 26, 26, 0.1);
-  max-width: 640px;
+  gap: calc(var(--spacing-base) * 2.5);
+  padding-top: calc(var(--spacing-base) * 1);
+  padding-bottom: calc(var(--spacing-base) * 2);
+  max-width: 720px;
   margin: 0 auto;
+}
+
+.ctaIntro {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  font-weight: 400;
+  color: var(--color-text);
+  opacity: 0.88;
+  text-align: center;
+  margin: 0;
+  max-width: 600px;
 }
 
 .primaryCta {
   display: inline-block;
-  padding: calc(var(--spacing-base) * 1.125) calc(var(--spacing-base) * 3.5);
+  padding: calc(var(--spacing-base) * 1.5) calc(var(--spacing-base) * 5);
   background-color: var(--color-accent);
   color: #ffffff;
   font-family: var(--font-sans);
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   font-weight: 500;
   text-decoration: none;
   border: 2px solid var(--color-accent);
-  transition: all 0.2s ease;
+  border-radius: 2px;
+  transition: all 0.3s ease;
   letter-spacing: 0.01em;
+  box-shadow: 0 6px 20px rgba(42, 85, 64, 0.2);
 }
 
 .primaryCta:hover {
   background-color: transparent;
   color: var(--color-accent);
+  box-shadow: 0 8px 28px rgba(42, 85, 64, 0.25);
+  transform: translateY(-2px);
 }
 
 .ctaSupport {
   font-family: var(--font-sans);
   font-size: 0.9375rem;
-  line-height: 1.6;
+  line-height: 1.65;
   font-weight: 300;
   color: var(--color-text);
-  opacity: 0.7;
-  max-width: 480px;
+  opacity: 0.65;
+  max-width: 520px;
+  text-align: center;
+  margin: 0;
 }
 
 /* Tablet and up */
@@ -139,10 +200,12 @@
   }
 
   .requirements {
-    gap: calc(var(--spacing-base) * 3.5);
+    gap: calc(var(--spacing-base) * 3);
+    padding: calc(var(--spacing-base) * 1.5) calc(var(--spacing-base) * 3);
   }
 
   .requirement {
+    flex: 0 0 calc(50% - calc(var(--spacing-base) * 1.5));
     padding: calc(var(--spacing-base) * 3);
   }
 
@@ -154,13 +217,23 @@
     font-size: 1.125rem;
   }
 
-  .closingText {
+  .emotionalPhrase {
+    padding: calc(var(--spacing-base) * 6) calc(var(--spacing-base) * 3);
+    margin-bottom: calc(var(--spacing-base) * 8);
+  }
+
+  .phraseText {
+    font-size: 2.25rem;
+    line-height: 1.3;
+  }
+
+  .ctaIntro {
     font-size: 1.1875rem;
   }
 
   .primaryCta {
-    font-size: 1.125rem;
-    padding: calc(var(--spacing-base) * 1.25) calc(var(--spacing-base) * 4);
+    font-size: 1.1875rem;
+    padding: calc(var(--spacing-base) * 1.625) calc(var(--spacing-base) * 5.5);
   }
 
   .ctaSupport {
@@ -171,7 +244,7 @@
 /* Desktop and up */
 @media (min-width: 1024px) {
   .section {
-    padding: calc(var(--spacing-base) * 12) 0;
+    padding: calc(var(--spacing-base) * 8) 0;
   }
 
   .mainHeading {
@@ -184,10 +257,15 @@
   }
 
   .requirements {
-    margin-bottom: calc(var(--spacing-base) * 8);
+    gap: calc(var(--spacing-base) * 3.5);
+    padding: calc(var(--spacing-base) * 2) calc(var(--spacing-base) * 4);
+    justify-content: center;
+    overflow-x: visible;
   }
 
   .requirement {
+    flex: 0 0 auto;
+    max-width: 360px;
     padding: calc(var(--spacing-base) * 3.5);
   }
 
@@ -195,11 +273,31 @@
     font-size: 1.75rem;
   }
 
-  .closing {
-    margin-bottom: calc(var(--spacing-base) * 7);
+  .emotionalPhrase {
+    padding: calc(var(--spacing-base) * 7) calc(var(--spacing-base) * 4);
+    margin-bottom: calc(var(--spacing-base) * 9);
+  }
+
+  .phraseText {
+    font-size: 2.5rem;
+    line-height: 1.25;
   }
 
   .ctaBlock {
-    padding-top: calc(var(--spacing-base) * 5);
+    padding-top: calc(var(--spacing-base) * 7);
+    gap: calc(var(--spacing-base) * 3);
+  }
+
+  .ctaIntro {
+    font-size: 1.25rem;
+  }
+
+  .primaryCta {
+    font-size: 1.25rem;
+    padding: calc(var(--spacing-base) * 1.75) calc(var(--spacing-base) * 6);
+  }
+
+  .ctaSupport {
+    font-size: 1.0625rem;
   }
 }

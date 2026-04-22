@@ -1,175 +1,400 @@
-# Contexto de implementación — Landing “Proceso Vivo”
+# Implementation Context — “Proceso Vivo” Website
 
-## Objetivo del proyecto
-Construir una landing page en **Next.js + TypeScript + CSS Modules** para presentar el método terapéutico **Proceso Vivo** de forma clara, seria y filtrante.
+## Project Goal
+Build a **section-based website** in **Next.js + TypeScript + CSS Modules** for **Proceso Vivo**.
 
-La landing **no debe vender una solución mágica**. Debe ayudar a que la persona que entra entienda:
-- qué es el método,
-- para qué tipo de situación puede servir,
-- para qué situaciones **no** es suficiente por sí solo,
-- cómo funciona el enfoque,
-- y cómo es el aparato/dispositivo utilizado dentro de la terapia.
+This should no longer be treated as a static landing page only.
+It should feel like a **guided, editorial, interactive website** with subtle movement, soft transitions, and a narrative scroll experience.
 
-El objetivo principal es **calificar al visitante** antes del contacto.
+The website must help users understand:
+- what Proceso Vivo is,
+- who it is for,
+- who it is not for,
+- how the method works,
+- who is behind it,
+- what kinds of services are available,
+- what tools are used within the process,
+- and what kind of involvement is required.
 
-## Enfoque estratégico
-La experiencia debe sentirse como una **guía de autochequeo** mientras el usuario hace scroll.
-No debe parecer una promesa milagrosa ni una página esotérica.
-Debe transmitir seriedad, contención, claridad, criterio clínico, integración entre mente, cuerpo y energía, y una estética humana, íntima y pausada.
+The main goal is still to **qualify the visitor before contact**, but now through a richer and more dynamic experience.
 
-La página debe ayudar a responder internamente esta pregunta: **¿Este método es para mí en este momento?**
+---
 
-## Base conceptual de marca
-Tomar como base el manual de marca de Proceso Vivo:
-- Integra **psicología clínica** con trabajo sobre el **cuerpo** y la **dimensión energética**.
-- Aborda a la persona como un **sistema vivo**.
-- No se trata solo de comprender lo que pasa, sino de **procesarlo para que deje de repetirse**.
-- Trabaja en dos niveles: estructural y corporal/energético.
-- Conceptos centrales: Conciencia, Responsabilidad, Transformación, Integración.
+## Core Strategic Direction
+The site should feel like a **guided experience**, not a hard-selling page.
 
-## Posicionamiento
-La landing debe dejar claro, con lenguaje cuidado y responsable, que:
-- no es una solución instantánea,
-- no es “magia”,
-- no reemplaza un abordaje médico o psiquiátrico cuando ese abordaje es necesario,
-- no debe prometer curas,
-- no debe usar lenguaje absolutista.
+It should help the visitor internally answer:
+**“Is this the right kind of process for me right now?”**
 
-Sí debe comunicar que puede ser valioso para personas que:
-- sienten que repiten patrones,
-- registran malestar persistente,
-- entienden racionalmente lo que les pasa pero no logran transformarlo,
-- sienten que el cuerpo también está involucrado en lo emocional,
-- buscan un proceso activo y comprometido.
+The experience must feel:
+- calm
+- human
+- professional
+- spacious
+- grounded
+- subtly alive
 
-Debe desaconsejar con tacto a quienes:
-- buscan una solución inmediata o milagrosa,
-- necesitan medicación o un abordaje psiquiátrico específico,
-- atraviesan situaciones que requieren intervención clínica más avanzada,
-- no están dispuestos a involucrarse activamente en su proceso.
+It must NOT feel:
+- static and cold
+- corporate
+- salesy
+- mystical in a cliché way
+- pseudo-scientific
+- visually overloaded
+- like a SaaS landing page
 
-## Tono
-Debe ser sereno, claro, humano, profesional, cálido pero no meloso, profundo pero no críptico, espiritual en un sentido sobrio y terapéutico con estructura.
+This is not about selling a magical solution.
+It is about building clarity, trust, and self-selection.
 
-No debe ser marketinero, agresivo, místico cliché, grandilocuente, excesivamente técnico desde el inicio, frío institucional ni sobrecargado de texto.
+---
 
-## Dirección visual
-Inspirarse en el manual: composición con aire, equilibrio y claridad, formas orgánicas derivadas del isotipo, recorridos visuales suaves, sensación de proceso y movimiento interno, fotografías íntimas y humanas, foco en cuerpo/manos/piel/postura/pausa/registro, y evitar clichés visuales espirituales.
+## Brand / Conceptual Foundation
+Use the Proceso Vivo brand manual as conceptual base.
 
-## Tipografía y sistema visual
-Según manual:
-- **Georgia Regular** para títulos o frases destacadas.
-- **Poppins Light / Semibold** para textos corridos y destacados secundarios.
+Key ideas:
+- It integrates **clinical psychology** with work on the **body** and an **energetic dimension**. :contentReference[oaicite:3]{index=3}
+- It approaches the person as a **living system**. :contentReference[oaicite:4]{index=4}
+- It is not only about understanding what happens, but about **processing it so it stops repeating itself**. :contentReference[oaicite:5]{index=5}
+- The method works on two complementary levels:
+  - structural / clinical psychology
+  - body-based / energetic :contentReference[oaicite:6]{index=6}
 
-Implementación sugerida en web:
-- `Georgia, serif` para headings.
-- `Poppins, sans-serif` para cuerpo.
-- Interlineado amplio.
-- Ancho de lectura controlado.
-- Evitar bloques interminables.
+Core concepts from the brand:
+- Consciousness
+- Responsibility
+- Transformation
+- Integration :contentReference[oaicite:7]{index=7}
 
-Nota: el PDF describe verbalmente una paleta con verde oliva, azul, magenta frío, hueso y carbón, pero el texto parseado no muestra todos los HEX de forma confiable. No fijar todavía una paleta definitiva solo con esos HEX parseados. Preparar el sistema para tokens de color fácilmente reemplazables.
+---
 
-## Reglas técnicas
-- Stack: **Next.js + TypeScript + CSS Modules**.
-- No usar Tailwind.
-- No usar styled-components.
-- Evitar librerías innecesarias.
-- Componentes desacoplados y reutilizables.
-- Todo el styling debe vivir en `*.module.css`.
-- Nada de inline styles salvo necesidad real.
+## Positioning Rules
+The site must communicate clearly and responsibly that:
+- this is not an instant solution,
+- this is not magic,
+- it does not replace medical or psychiatric care when that is needed,
+- it should not promise cures,
+- it should not use absolutist language.
 
-## Objetivo UX
-La landing debe guiar al usuario como si avanzara por un filtro editorial/terapéutico.
-Narrativa sugerida: interés inicial, identificación del problema, autofiltrado, explicación del enfoque, cómo funciona técnicamente, qué esperar del proceso y CTA.
+It should feel valuable for people who:
+- feel stuck in repeating patterns,
+- experience persistent discomfort,
+- understand what happens mentally but cannot transform it,
+- feel that the body is also involved in what they are going through,
+- are looking for a deeper and active process.
 
-## Estructura sugerida
-1. **Hero / apertura**
-2. **Sección de identificación** con preguntas breves
-3. **Esto puede ayudarte si…**
-4. **Quizás no es lo que necesitás hoy**
-5. **Cómo trabaja el método**
-6. **Proceso** apoyado en Conciencia / Responsabilidad / Transformación / Integración
-7. **Sección técnica del aparato/dispositivo**
-8. **Expectativas / compromiso**
-9. **CTA final**
+It should carefully discourage people who:
+- are looking for a miraculous or immediate fix,
+- need psychiatric medication or urgent medical care,
+- require a more advanced clinical intervention,
+- are not willing to take an active role in their process.
 
-## Reglas de copy para Copilot
-- frases cortas o medias,
-- sin promesas absolutas,
-- sin tono esotérico cliché,
-- sin claims médicos,
-- sin repetir demasiado “energía”,
-- con vocabulario claro,
-- con equilibrio entre profundidad y legibilidad,
-- con más criterio editorial que publicitario.
+---
 
-Evitar palabras como milagro, sanación garantizada, cura, vibración elevada, desbloqueo cuántico, transformación inmediata.
+## Professional Behind the Method
+The professional behind the method is:
 
-## Reglas de UI para Copilot
-- Diseñar desktop first, con responsive prolijo.
-- Mucho aire entre secciones.
-- Máximo ancho de texto controlado.
-- Alternar secciones textuales con secciones visuales.
-- Evitar cards genéricas con sombras pesadas.
-- Evitar interfaces tipo SaaS.
-- Evitar look corporativo frío.
-- Preferir layouts editoriales, sobrios y respirados.
-- Botones discretos, elegantes y claros.
+**Lic. María del Castillo**  
+**Psychologist in Integration and Bioenergy** :contentReference[oaicite:8]{index=8}
 
-## Componentes sugeridos
-- `Hero`
-- `SelfCheckSection`
-- `WhoIsForSection`
-- `WhoIsNotForSection`
-- `MethodExplanationSection`
-- `ProcessStepsSection`
-- `DeviceSection`
-- `CommitmentSection`
-- `FinalCTA`
+Her positioning should be reflected clearly in the website:
+- Her background began in psychology with a psychoanalytic orientation. :contentReference[oaicite:9]{index=9}
+- Her practice evolved toward a deeper integration. :contentReference[oaicite:10]{index=10}
+- She states that not everything is resolved through words alone, and that some processes also require working with the body, energy, and subtler dimensions of human experience. :contentReference[oaicite:11]{index=11}
+- Her approach combines psychology, philosophy, and a spiritual dimension **without adhering to any religion**, within a serious and professional framework. :contentReference[oaicite:12]{index=12}
+- She works with people who no longer seek only to understand, but to transform. :contentReference[oaicite:13]{index=13}
+- The synthesis of her path is the **Método Proceso Vivo**. :contentReference[oaicite:14]{index=14}
 
-## Restricciones críticas
-- No inventar información clínica específica.
-- No inventar especificaciones técnicas reales del aparato si no están confirmadas.
-- No usar testimonios falsos.
-- No usar estadísticas inventadas.
-- No presentar el método como reemplazo universal.
+Contact details currently available:
+- Email: maria.delcastiloo@gmail.com
+- Phone: 1134810707 :contentReference[oaicite:15]{index=15}
 
-## Prioridades
-1. Estructura clara para mostrar mañana.
-2. Buena jerarquía visual.
-3. Copy placeholder serio y usable.
-4. Arquitectura limpia en Next + TS + CSS Modules.
-5. Fácil iteración posterior.
+IMPORTANT:
+The website should present her in a human, grounded, professional way.
+Avoid guru-like language, excessive self-promotion, or cold institutional biography style.
 
-## Qué debe entregar Copilot en cada prompt
-- componente completo,
-- archivo TSX,
-- archivo CSS Module,
-- tipado correcto,
-- contenido placeholder coherente con la marca,
-- nada de refactors innecesarios fuera del alcance.
+---
 
+## Services / Ways to Enter the Process
+The website should include a section that explains the available service paths.
 
-La landing debe incluir una sección dedicada a la profesional detrás de Proceso Vivo, para generar confianza, legitimidad y cercanía. Esta sección no debe sentirse corporativa ni autorreferencial, sino humana, sobria y profesional.
+### 1. Initial Session
+This is an entry point, not the full therapy process.
+It is meant to:
+- listen,
+- organize the issue,
+- identify the core pattern or block,
+- and offer a first direction. :contentReference[oaicite:16]{index=16}
 
-Objetivo de la sección:
-- Mostrar que detrás del método hay una profesional real.
-- Reforzar confianza y credibilidad.
-- Humanizar la propuesta.
-- Presentar brevemente a la psicóloga desde una voz clara y seria.
+It is NOT meant to:
+- fully deepen the whole process,
+- solve everything,
+- or provide ongoing support afterwards. :contentReference[oaicite:17]{index=17}
 
-La sección debe incluir:
-- foto principal de la profesional
-- nombre completo
-- rol profesional
-- breve descripción / bio
-- una cita o frase destacada en primera persona
-- opcionalmente formación, experiencia o áreas de trabajo
+### 2. Método Proceso Vivo
+This is the core structured process.
+It includes:
+- 4 structured sessions,
+- work on emotional, mental, and energetic levels,
+- a beginning, development, and closure,
+- and the bond happens inside each session, without follow-up in between. :contentReference[oaicite:18]{index=18}
 
-Lineamientos visuales:
-- retrato cálido, natural y sobrio
-- nada de estética institucional dura ni look corporativo frío
-- composición editorial con bastante aire
-- puede resolverse en dos columnas en desktop y una columna en mobile
-- la frase destacada debe tener jerarquía visual
+### 3. Proceso Profundo
+This is presented as the same process as the core method, but with additional accompaniment / support. :contentReference[oaicite:19]{index=19}
+
+IMPORTANT:
+Do not frame these as aggressive commercial packages.
+Present them as **different levels of engagement** with the process.
+
+---
+
+## Tools Used Within the Method
+The site should no longer refer vaguely to a single “device”.
+Instead, it should explain that Proceso Vivo uses specific tools within the therapeutic process.
+
+### Audiotherapy
+In Proceso Vivo, audiotherapy is used as a tool for **nervous system regulation** that accompanies therapeutic work. :contentReference[oaicite:20]{index=20}
+
+It is described as helping to:
+- reduce anxiety and stress,
+- calm the mind,
+- support deep relaxation,
+- improve rest,
+- accompany emotional processes without overload,
+- favor inner connection and presence. :contentReference[oaicite:21]{index=21}
+
+Important framing:
+- It does **not replace words**; it strengthens therapeutic work. :contentReference[oaicite:22]{index=22}
+- It helps what is worked on in session not remain only mental, but become more integrated in the body. :contentReference[oaicite:23]{index=23}
+
+### Chromotherapy
+Proceso Vivo also uses chromotherapy as a tool for deep nervous system regulation through light. :contentReference[oaicite:24]{index=24}
+
+The material provided explains it as:
+- colors being frequencies perceived by the brain,
+- received through the retina,
+- generating neurological responses that influence emotional, mental, and bodily states. :contentReference[oaicite:25]{index=25}
+
+It is presented as helping the nervous system:
+- calm down,
+- organize itself,
+- and find a new internal balance. :contentReference[oaicite:26]{index=26}
+
+Each color may support different processes such as:
+- activation,
+- calm,
+- focus,
+- integration. :contentReference[oaicite:27]{index=27}
+
+IMPORTANT:
+These tools must be presented as **supportive elements within a broader process**,
+not as magical or standalone solutions.
+
+---
+
+## Tone of Voice
+The tone should be:
+- calm
+- clear
+- human
+- professional
+- warm but not sugary
+- deep but not cryptic
+- spiritually open in a sober and grounded way
+- serious and trustworthy
+
+Avoid:
+- marketing language
+- urgency tactics
+- mystical clichés
+- exaggerated promises
+- pseudo-scientific language
+- overly technical explanations too early
+- cold institutional voice
+- long unreadable blocks of text
+
+---
+
+## Visual Direction
+Use the brand manual as inspiration.
+
+Visual principles:
+- air, balance, clarity,
+- organic forms derived from the visual identity,
+- soft visual rhythm,
+- a sense of process and internal movement,
+- intimate and human photography,
+- focus on body / hands / skin / posture / pause / presence,
+- avoid spiritual clichés. :contentReference[oaicite:28]{index=28}
+
+The site should no longer feel static.
+It should include:
+- subtle movement,
+- scroll rhythm,
+- gentle hover states,
+- soft reveals,
+- calm interaction.
+
+IMPORTANT:
+This should feel alive, not flashy.
+
+---
+
+## Typography
+According to the manual:
+- **Georgia Regular** for titles and highlighted phrases
+- **Poppins Light / Semibold** for body text and secondary emphasis :contentReference[oaicite:29]{index=29}
+
+Suggested implementation:
+- `Georgia, serif` for headings
+- `Poppins, sans-serif` for body
+
+Typography rules:
+- generous line-height
+- controlled reading width
+- elegant hierarchy
+- avoid dense blocks
+
+---
+
+## Color System
+The PDF verbally describes a palette involving olive green, blue, cool magenta, bone, and charcoal, but the parsed PDF text is not fully reliable for exact HEX assignment. :contentReference[oaicite:30]{index=30}
+
+Implementation rule:
+- define color tokens as CSS variables
+- keep them easy to swap later
+- do not lock a final palette too early based only on parsed PDF data
+
+---
+
+## Technical Rules
+- Stack: **Next.js + TypeScript + CSS Modules**
+- Use App Router
+- No Tailwind
+- No styled-components
+- Avoid unnecessary dependencies
+- Keep components reusable and decoupled
+- All styling must live in `*.module.css`
+- No inline styles unless truly necessary
+
+---
+
+## UX Direction
+This should feel like a **guided editorial flow** with subtle interaction.
+
+Narrative arc:
+1. attraction / emotional recognition
+2. self-identification
+3. filtering / self-selection
+4. method explanation
+5. professional trust
+6. service clarity
+7. tools / techniques explanation
+8. expectations and commitment
+9. soft contact invitation
+
+The user should feel guided, not pushed.
+
+---
+
+## Recommended Site Structure
+1. Navbar
+2. Hero
+3. Guided self-check / filtering section
+4. Method section
+5. Professional section
+6. Services section
+7. Tools / techniques section
+8. Expectations / commitment section
+9. Final CTA
+10. Footer
+
+---
+
+## UI Rules for Copilot
+- Desktop first, responsive with care
+- Plenty of breathing room
+- Controlled text widths
+- Alternate textual and visual sections
+- Avoid generic cards with heavy shadows
+- Avoid SaaS-style layouts
+- Avoid cold corporate aesthetics
+- Prefer editorial, quiet, balanced compositions
+- Buttons should be elegant and restrained
+- Interactions should be subtle and meaningful
+
+---
+
+## Interaction Rules
+The site should include movement, but in a controlled way.
+
+Allowed:
+- soft hover effects
+- subtle reveal on scroll
+- light expansion
+- smooth transitions
+- small editorial motion cues
+
+Avoid:
+- big parallax effects
+- flashy animations
+- bouncing elements
+- carousel-heavy UI
+- anything that feels gimmicky
+
+Interaction should reinforce the idea of **process**, not distract from it.
+
+---
+
+## Copy Rules for Copilot
+- short to medium-length sentences
+- no absolute promises
+- no mystical cliché wording
+- no medical claims beyond provided material
+- avoid overusing the word “energy”
+- clear vocabulary
+- balance depth and readability
+- prefer editorial language over promotional language
+
+Avoid words like:
+- miracle
+- guaranteed healing
+- cure
+- high vibration
+- quantum unlocking
+- instant transformation
+
+---
+
+## Critical Restrictions
+- Do not invent clinical claims
+- Do not invent technical specifications not provided
+- Do not invent testimonials
+- Do not invent statistics
+- Do not present the method as a universal replacement
+- Do not position tools as standalone miracle solutions
+
+---
+
+## Priorities
+1. Strong structure
+2. Clear hierarchy
+3. Serious placeholder copy
+4. Clean architecture in Next.js + TS + CSS Modules
+5. Easy iteration later
+6. Balance between text, image, and motion
+
+---
+
+## What Copilot Must Deliver in Each Prompt
+For every section prompt, Copilot should:
+- create the full component
+- create the TSX file
+- create the CSS Module file
+- use proper typing
+- use placeholder copy aligned with the brand
+- update `app/page.tsx` to render the section in the correct order
+- avoid unrelated refactors
+
+For layout-level components like Navbar or Footer:
+- update `app/layout.tsx` only when necessary
+- avoid touching unrelated files

@@ -1,63 +1,209 @@
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
 import styles from './GuidedFilterSection.module.css';
 
+interface ResonanceItem {
+  id: number;
+  text: string;
+}
+
+type ViewMode = 'resonance' | 'notForYou';
+
 export default function GuidedFilterSection() {
+  const [activeMode, setActiveMode] = useState<ViewMode>('resonance');
+  const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+  const [visibleItems, setVisibleItems] = useState<number[]>([]);
+  const [headerVisible, setHeaderVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+
+  const resonanceItems: ResonanceItem[] = [
+    {
+      id: 1,
+      text: 'Sentís que repetís patrones que no querés repetir, incluso cuando ya entendés racionalmente por qué suceden.'
+    },
+    {
+      id: 2,
+      text: 'Percibís que hay algo que tu cuerpo registra o sostiene, pero no lográs procesarlo completamente desde la palabra.'
+    },
+    {
+      id: 3,
+      text: 'Buscás un espacio que integre lo emocional, lo corporal y una dimensión más profunda de lo que te pasa.'
+    },
+    {
+      id: 4,
+      text: 'Estás dispuesto/a a involucrarte activamente en tu proceso, más allá de solo recibir consejos o explicaciones.'
+    },
+    {
+      id: 5,
+      text: 'Sentís que necesitás un abordaje que no se quede solo en comprender, sino que trabaje para que algo se mueva realmente.'
+    }
+  ];
+
+  const notForYouItems: ResonanceItem[] = [
+    {
+      id: 1,
+      text: 'Estás atravesando una crisis aguda o una situación que requiere atención clínica inmediata o de urgencia.'
+    },
+    {
+      id: 2,
+      text: 'Tu situación requiere un abordaje psiquiátrico, medicación específica, o un tratamiento médico prioritario que no puede esperar.'
+    },
+    {
+      id: 3,
+      text: 'Buscás una solución rápida, inmediata, o una respuesta externa que resuelva lo que sentís sin que tengas que involucrarte profundamente.'
+    },
+    {
+      id: 4,
+      text: 'No te sentís en condiciones de sostener un proceso que requiere constancia, presencia y compromiso con vos mismo/a.'
+    },
+    {
+      id: 5,
+      text: 'Estás buscando garantías de resultados específicos o promesas de transformación que ningún método terapéutico serio puede ofrecer.'
+    }
+  ];
+
+  const currentItems = activeMode === 'resonance' ? resonanceItems : notForYouItems;
+
+  // Header reveal animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHeaderVisible(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (headerRef.current) {
+      observer.observe(headerRef.current);
+    }
+
+    return () => {
+      if (headerRef.current) {
+        observer.unobserve(headerRef.current);
+      }
+      observer.disconnect();
+    };
+  }, []);
+
+  // Items reveal animation - reset when mode changes
+  useEffect(() => {
+    setVisibleItems([]);
+    
+    const timer = setTimeout(() => {
+      currentItems.forEach((item, index) => {
+        setTimeout(() => {
+          setVisibleItems(prev => [...prev, item.id]);
+        }, index * 100);
+      });
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [activeMode]);
+
+  const handleModeSwitch = (mode: ViewMode) => {
+    if (mode !== activeMode) {
+      setActiveMode(mode);
+      setHoveredItem(null);
+    }
+  };
+
   return (
-    <section className={styles.section}>
+    <section ref={sectionRef} className={styles.section} id="para-quien">
+      <div className={styles.decorativeShape1}></div>
+      <div className={styles.decorativeShape2}></div>
+      
       <div className={styles.container}>
         <div className={styles.intro}>
           <h2 className={styles.mainHeading}>¿Es este el momento para un proceso así?</h2>
           <p className={styles.introParagraph}>
-            No todos los caminos son para todos los momentos. Esta sección está para ayudarte a evaluar si lo que ofrece este método resuena con lo que estás atravesando ahora.
+            No todos los caminos son para todos los momentos. Esta sección está para ayudarte 
+            a evaluar si lo que ofrece este método resuena con lo que estás atravesando ahora.
           </p>
         </div>
 
-        <div className={styles.grid}>
-          <div className={styles.block}>
-            <h3 className={styles.blockHeading}>Puede resonarte si…</h3>
-            <div className={styles.content}>
-              <p className={styles.item}>
-                Sentís que repetís patrones que no querés repetir, incluso cuando ya entendés racionalmente por qué suceden.
-              </p>
-              <p className={styles.item}>
-                Percibís que hay algo que tu cuerpo registra o sostiene, pero no lográs procesarlo completamente desde la palabra.
-              </p>
-              <p className={styles.item}>
-                Buscás un espacio que integre lo emocional, lo corporal y una dimensión más profunda de lo que te pasa.
-              </p>
-              <p className={styles.item}>
-                Estás dispuesto/a a involucrarte activamente en tu proceso, más allá de solo recibir consejos o explicaciones.
-              </p>
-              <p className={styles.item}>
-                Sentís que necesitás un abordaje que no se quede solo en comprender, sino que trabaje para que algo se mueva realmente.
-              </p>
-            </div>
+        <div className={styles.contentBlock}>
+          {/* Editorial Toggle */}
+          <div 
+            ref={headerRef}
+            className={`${styles.toggleContainer} ${headerVisible ? styles.headerVisible : ''}`}
+          >
+            <div className={styles.accentStar}>✦</div>
+            <nav className={styles.toggleNav} role="tablist">
+              <button
+                onClick={() => handleModeSwitch('resonance')}
+                className={`${styles.toggle} ${activeMode === 'resonance' ? styles.toggleActive : ''}`}
+                role="tab"
+                aria-selected={activeMode === 'resonance'}
+                aria-controls="filter-content"
+              >
+                Puede resonarte si…
+              </button>
+              <button
+                onClick={() => handleModeSwitch('notForYou')}
+                className={`${styles.toggle} ${styles.toggleSecondary} ${activeMode === 'notForYou' ? styles.toggleActive : ''}`}
+                role="tab"
+                aria-selected={activeMode === 'notForYou'}
+                aria-controls="filter-content"
+              >
+                Quizás no es lo que necesitás hoy si…
+              </button>
+            </nav>
+            <p className={styles.toggleSubtext}>
+              {activeMode === 'resonance' 
+                ? 'Reconocé si alguna de estas experiencias conecta con lo que estás viviendo'
+                : 'Es importante identificar cuando el momento no es el adecuado'}
+            </p>
           </div>
-
-          <div className={styles.block}>
-            <h3 className={styles.blockHeading}>Quizás no es lo que necesitás hoy si…</h3>
-            <div className={styles.content}>
-              <p className={styles.item}>
-                Estás atravesando una crisis aguda o una situación que requiere atención clínica inmediata o de urgencia.
-              </p>
-              <p className={styles.item}>
-                Tu situación requiere un abordaje psiquiátrico, medicación específica, o un tratamiento médico prioritario que no puede esperar.
-              </p>
-              <p className={styles.item}>
-                Buscás una solución rápida, inmediata, o una respuesta externa que resuelva lo que sentís sin que tengas que involucrarte profundamente.
-              </p>
-              <p className={styles.item}>
-                No te sentís en condiciones de sostener un proceso que requiere constancia, presencia y compromiso con vos mismo/a.
-              </p>
-              <p className={styles.item}>
-                Estás buscando garantías de resultados específicos o promesas de transformación que ningún método terapéutico serio puede ofrecer.
-              </p>
+          
+          {/* Dynamic List */}
+          <div 
+            key={activeMode}
+            id="filter-content"
+            className={`${styles.listContainer} ${activeMode === 'notForYou' ? styles.secondaryMode : ''}`}
+            role="tabpanel"
+          >
+            <div className={`${styles.itemList} ${headerVisible ? styles.listVisible : ''}`}>
+              <div className={`${styles.verticalLine} ${headerVisible ? styles.lineVisible : ''}`}></div>
+              
+              {currentItems.map((item, index) => (
+                <div
+                  key={`${activeMode}-${item.id}`}
+                  className={`${styles.listItem} ${
+                    visibleItems.includes(item.id) ? styles.itemVisible : ''
+                  } ${
+                    hoveredItem === item.id ? styles.itemActive : ''
+                  } ${
+                    hoveredItem !== null && hoveredItem !== item.id ? styles.itemFaded : ''
+                  }`}
+                  onMouseEnter={() => setHoveredItem(item.id)}
+                  onMouseLeave={() => setHoveredItem(null)}
+                  onFocus={() => setHoveredItem(item.id)}
+                  onBlur={() => setHoveredItem(null)}
+                  tabIndex={0}
+                  role="article"
+                >
+                  <span className={styles.itemNumber} aria-hidden="true">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <div className={styles.itemContent}>
+                    <p className={styles.itemText}>{item.text}</p>
+                    <div className={styles.itemAccent}></div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
         <div className={styles.closing}>
           <p className={styles.closingText}>
-            Este método no reemplaza un tratamiento médico, psiquiátrico o psicoterapéutico cuando eso es lo que la persona necesita. Es un abordaje complementario e integrativo que trabaja desde otro lugar. Si tenés dudas sobre si es lo adecuado para tu situación, es válido consultar con tu profesional de confianza antes de decidir.
+            Este método no reemplaza un tratamiento médico, psiquiátrico o psicoterapéutico 
+            cuando eso es lo que la persona necesita. Es un abordaje complementario e integrativo 
+            que trabaja desde otro lugar.
           </p>
         </div>
       </div>
