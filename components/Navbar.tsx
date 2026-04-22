@@ -7,7 +7,7 @@ export default function Navbar() {
       <div className={styles.container}>
         <a href="#" className={styles.brand}>
           <Image
-            src="/images/Logo.png"
+            src="/images/logo.png"
             alt="Proceso Vivo"
             width={130}
             height={40}
