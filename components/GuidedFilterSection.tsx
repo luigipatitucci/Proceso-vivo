@@ -140,7 +140,8 @@ export default function GuidedFilterSection() {
                 aria-selected={activeMode === 'resonance'}
                 aria-controls="filter-content"
               >
-                Puede resonarte si…
+                <span className={styles.toggleTextMobile}>Resuena</span>
+                <span className={styles.toggleTextDesktop}>Puede resonarte si…</span>
               </button>
               <button
                 onClick={() => handleModeSwitch('notForYou')}
@@ -149,7 +150,8 @@ export default function GuidedFilterSection() {
                 aria-selected={activeMode === 'notForYou'}
                 aria-controls="filter-content"
               >
-                Quizás no es lo que necesitás hoy si…
+                <span className={styles.toggleTextMobile}>No es para vos</span>
+                <span className={styles.toggleTextDesktop}>Quizás no es lo que necesitás hoy si…</span>
               </button>
             </nav>
             <p className={styles.toggleSubtext}>

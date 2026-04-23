@@ -125,12 +125,15 @@
 
 /* Editorial Toggle Navigation */
 .toggleNav {
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--spacing-base) * 1.5);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--spacing-base) * 0.75);
   margin-bottom: calc(var(--spacing-base) * 2);
   opacity: 1;
   transform: translateY(0);
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Keep animation for progressive enhancement */
@@ -148,60 +151,51 @@
 
 /* Editorial Toggle Buttons */
 .toggle {
-  font-family: var(--font-serif);
-  font-size: 1.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
   line-height: 1.3;
-  font-weight: 400;
-  color: #999999;
-  opacity: 0.5;
-  letter-spacing: -0.015em;
-  background: transparent;
-  border: none;
+  font-weight: 500;
+  color: rgba(42, 85, 64, 0.6);
+  letter-spacing: -0.01em;
+  background: rgba(42, 85, 64, 0.04);
+  border: 1.5px solid rgba(42, 85, 64, 0.15);
+  border-radius: 4px;
   cursor: pointer;
-  padding: calc(var(--spacing-base) * 1) 0;
+  padding: calc(var(--spacing-base) * 0.875) calc(var(--spacing-base) * 1);
   position: relative;
-  transition: all 0.3s ease;
-  text-align: left;
-}
-
-.toggle::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--color-magenta);
-  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
 }
 
 .toggle:hover {
-  color: #666666;
-  opacity: 0.75;
+  background: rgba(42, 85, 64, 0.08);
+  border-color: rgba(42, 85, 64, 0.25);
+  color: rgba(42, 85, 64, 0.8);
 }
 
 .toggle.toggleActive {
+  background: linear-gradient(135deg, rgba(195, 51, 139, 0.08), rgba(195, 51, 139, 0.04));
+  border-color: var(--color-magenta);
   color: var(--color-magenta);
-  opacity: 1;
-  font-weight: 400;
-}
-
-.toggle.toggleActive::after {
-  width: 4rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(195, 51, 139, 0.12);
 }
 
 /* Secondary toggle styling  */
-.toggle.toggleSecondary {
-  font-size: 1.375rem;
-}
-
 .toggle.toggleSecondary.toggleActive {
+  background: linear-gradient(135deg, rgba(42, 85, 64, 0.08), rgba(42, 85, 64, 0.04));
+  border-color: var(--color-accent);
   color: var(--color-accent);
+  box-shadow: 0 2px 8px rgba(42, 85, 64, 0.12);
 }
 
-.toggle.toggleSecondary.toggleActive::after {
-  width: 3.5rem;
-  background: var(--color-accent);
+/* Toggle text for mobile/desktop */
+.toggleTextMobile {
+  display: inline;
+}
+
+.toggleTextDesktop {
+  display: none;
 }
 
 /* Toggle Subtext */
@@ -273,8 +267,8 @@
 .listContainer.secondaryMode .verticalLine {
   background: linear-gradient(to bottom, 
     transparent 0%, 
-    rgba(42, 85, 64, 0.15) 10%, 
-    rgba(42, 85, 64, 0.15) 90%, 
+    rgba(42, 85, 64, 0.08) 10%, 
+    rgba(42, 85, 64, 0.08) 90%, 
     transparent 100%
   );
 }
@@ -282,20 +276,20 @@
 /* Item List */
 .itemList {
   position: relative;
-  padding-left: calc(var(--spacing-base) * 4);
+  padding-left: calc(var(--spacing-base) * 2.25);
 }
 
 /* Vertical Line */
 .verticalLine {
   position: absolute;
-  left: calc(var(--spacing-base) * 1.25);
+  left: calc(var(--spacing-base) * 0.75);
   top: 3%;
   width: 2px;
   height: 0;
   background: linear-gradient(to bottom, 
     transparent 0%, 
-    rgba(42, 85, 64, 0.25) 10%, 
-    rgba(42, 85, 64, 0.25) 90%, 
+    rgba(42, 85, 64, 0.12) 10%, 
+    rgba(42, 85, 64, 0.12) 90%, 
     transparent 100%
   );
   border-radius: 2px;
@@ -308,13 +302,14 @@
 
 /* List Item */
 .listItem {
-  padding: calc(var(--spacing-base) * 2.75) 0;
+  padding: calc(var(--spacing-base) * 2) 0;
   margin-bottom: calc(var(--spacing-base) * 0.5);
   position: relative;
   cursor: pointer;
-  display: flex;
-  align-items: flex-start;
-  gap: calc(var(--spacing-base) * 2.5);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: calc(var(--spacing-base) * 1);
   outline: none;
   opacity: 0;
   transform: translateY(20px);
@@ -338,12 +333,12 @@
 /* Item Number */
 .itemNumber {
   font-family: var(--font-sans);
-  font-size: 1rem;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: var(--color-accent);
-  min-width: 2.5rem;
+  min-width: 1.75rem;
   transition: all 0.3s ease;
-  margin-top: 0.25rem;
+  margin-top: 0.125rem;
   opacity: 0.5;
   letter-spacing: -0.02em;
 }
@@ -363,11 +358,12 @@
 
 .itemText {
   font-family: var(--font-sans);
-  font-size: 1.0625rem;
-  line-height: 1.75;
+  font-size: 0.9375rem;
+  line-height: 1.7;
   font-weight: 300;
   color: #3a3a3a;
   margin: 0;
+  max-width: 520px;
   transition: color 0.3s ease;
 }
 
@@ -457,18 +453,78 @@
   }
 
   .toggleNav {
+    display: flex;
     flex-direction: row;
     justify-content: center;
     gap: calc(var(--spacing-base) * 4);
+    max-width: none;
   }
 
   .toggle {
+    font-family: var(--font-serif);
     font-size: 1.75rem;
-    text-align: center;
+    font-weight: 400;
+    color: #999999;
+    letter-spacing: -0.015em;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: calc(var(--spacing-base) * 1) 0;
+    text-align: left;
+    position: relative;
+  }
+
+  .toggle::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-magenta);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .toggle:hover {
+    background: transparent;
+    border-color: transparent;
+    color: #666666;
+  }
+
+  .toggle.toggleActive {
+    background: transparent;
+    border-color: transparent;
+    color: var(--color-magenta);
+    font-weight: 400;
+    box-shadow: none;
+  }
+
+  .toggle.toggleActive::after {
+    width: 4rem;
   }
 
   .toggle.toggleSecondary {
     font-size: 1.5rem;
+  }
+
+  .toggle.toggleSecondary.toggleActive {
+    background: transparent;
+    border-color: transparent;
+    color: var(--color-accent);
+    box-shadow: none;
+  }
+
+  .toggle.toggleSecondary.toggleActive::after {
+    width: 3.5rem;
+    background: var(--color-accent);
+  }
+
+  .toggleTextMobile {
+    display: none;
+  }
+
+  .toggleTextDesktop {
+    display: inline;
   }
 
   .toggleSubtext {
@@ -479,17 +535,40 @@
     padding-left: calc(var(--spacing-base) * 5);
   }
 
+  .verticalLine {
+    left: calc(var(--spacing-base) * 1.25);
+    background: linear-gradient(to bottom, 
+      transparent 0%, 
+      rgba(42, 85, 64, 0.25) 10%, 
+      rgba(42, 85, 64, 0.25) 90%, 
+      transparent 100%
+    );
+  }
+
+  .listContainer.secondaryMode .verticalLine {
+    background: linear-gradient(to bottom, 
+      transparent 0%, 
+      rgba(42, 85, 64, 0.15) 10%, 
+      rgba(42, 85, 64, 0.15) 90%, 
+      transparent 100%
+    );
+  }
+
   .listItem {
     padding: calc(var(--spacing-base) * 3) 0;
+    display: flex;
     gap: calc(var(--spacing-base) * 3);
   }
 
   .itemNumber {
     font-size: 1.125rem;
+    min-width: 2.5rem;
+    margin-top: 0.25rem;
   }
 
   .itemText {
     font-size: 1.125rem;
+    max-width: none;
   }
 
   .closingText {

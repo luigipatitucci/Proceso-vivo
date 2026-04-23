@@ -3,8 +3,39 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from './FinalCtaSection.module.css';
 
+type RequirementKey = 'active' | 'time' | 'openness';
+
+interface Requirement {
+  key: RequirementKey;
+  label: string;
+  heading: string;
+  text: string;
+}
+
+const requirements: Requirement[] = [
+  {
+    key: 'active',
+    label: 'Disposición activa',
+    heading: 'Disposición activa',
+    text: 'Esto no es algo que te hagan. Es algo que hacés con acompañamiento. Requiere que estés presente, involucrado/a, y disponible para lo que vaya apareciendo.'
+  },
+  {
+    key: 'time',
+    label: 'Tiempo y constancia',
+    heading: 'Tiempo y constancia',
+    text: 'Los procesos profundos no se resuelven en una sesión ni en un mes. Requieren sostenerse en el tiempo, con paciencia y compromiso real con vos mismo/a.'
+  },
+  {
+    key: 'openness',
+    label: 'Apertura a lo desconocido',
+    heading: 'Apertura a lo desconocido',
+    text: 'No siempre sabés qué va a aparecer cuando empezás a trabajar de verdad. Requiere estar dispuesto/a a mirar lo que no querías mirar y a moverte de donde estabas.'
+  }
+];
+
 export default function FinalCtaSection() {
   const [phraseVisible, setPhraseVisible] = useState(false);
+  const [activeRequirement, setActiveRequirement] = useState<RequirementKey>('active');
   const phraseRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,11 +60,40 @@ export default function FinalCtaSection() {
     };
   }, []);
 
+  const activeContent = requirements.find(req => req.key === activeRequirement) || requirements[0];
+
   return (
     <section id="contacto" className={styles.section}>
       <div className={styles.container}>
         <h2 className={`${styles.mainHeading} reveal-fade-up ${phraseVisible ? 'is-visible' : ''}`}>¿Qué requiere este proceso?</h2>
 
+        {/* Mobile selector */}
+        <div className={styles.mobileSelector}>
+          {requirements.map((req, index) => (
+            <button
+              key={req.key}
+              className={`${styles.selectorButton} ${activeRequirement === req.key ? styles.selectorButtonActive : ''}`}
+              onClick={() => setActiveRequirement(req.key)}
+              aria-label={`Ver ${req.label}`}
+            >
+              <span className={styles.selectorNumber}>{String(index + 1).padStart(2, '0')}</span>
+              <span className={styles.selectorLabel}>{req.label}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Mobile single card view */}
+        <div className={styles.mobileRequirement}>
+          <div 
+            key={activeRequirement}
+            className={`${styles.requirement} ${styles.requirementMobile}`}
+          >
+            <h3 className={styles.requirementHeading}>{activeContent.heading}</h3>
+            <p className={styles.requirementText}>{activeContent.text}</p>
+          </div>
+        </div>
+
+        {/* Desktop cards view */}
         <div className={styles.requirements}>
           <div className={`${styles.requirement} reveal-fade-up reveal-delay-1 ${phraseVisible ? 'is-visible' : ''}`}>
             <h3 className={styles.requirementHeading}>Disposición activa</h3>
