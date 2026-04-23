@@ -2,7 +2,7 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: calc(var(--spacing-base) * 7) 0 calc(var(--spacing-base) * 5);
+  padding: calc(var(--spacing-base) * 7 + var(--navbar-height-mobile)) 0 calc(var(--spacing-base) * 5);
   background: 
     radial-gradient(circle at 85% 15%, rgba(195, 51, 139, 0.04), transparent 40%),
     radial-gradient(circle at 15% 85%, rgba(42, 85, 64, 0.05), transparent 45%),
@@ -368,7 +368,7 @@
 /* Tablet and up */
 @media (min-width: 768px) {
   .hero {
-    padding: calc(var(--spacing-base) * 10) 0 calc(var(--spacing-base) * 8);
+    padding: calc(var(--spacing-base) * 10 + var(--navbar-height-desktop)) 0 calc(var(--spacing-base) * 8);
   }
 
   .container {
