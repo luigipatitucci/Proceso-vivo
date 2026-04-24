@@ -33,6 +33,18 @@ export default function ToolsCarouselSection() {
     const element = sectionRef.current;
     if (!element) return;
 
+    // Check if element is already in viewport
+    const checkVisibility = () => {
+      const rect = element.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      if (rect.top < windowHeight * 0.9 && rect.bottom > 0) {
+        setIsVisible(true);
+      }
+    };
+
+    // Initial check
+    setTimeout(checkVisibility, 100);
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -41,13 +53,21 @@ export default function ToolsCarouselSection() {
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.1, rootMargin: '0px 0px -10% 0px' }
     );
 
     observer.observe(element);
 
+    // Re-check on hash change
+    const handleHashChange = () => {
+      setTimeout(checkVisibility, 300);
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+
     return () => {
       observer.disconnect();
+      window.removeEventListener('hashchange', handleHashChange);
     };
   }, []);
 

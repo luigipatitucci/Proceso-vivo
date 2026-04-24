@@ -37,26 +37,88 @@ export default function FinalCtaSection() {
   const [phraseVisible, setPhraseVisible] = useState(false);
   const [activeRequirement, setActiveRequirement] = useState<RequirementKey>('active');
   const phraseRef = useRef<HTMLDivElement>(null);
+  const hasBeenVisibleRef = useRef(false);
 
   useEffect(() => {
     const element = phraseRef.current;
-    if (!element) return;
+    if (!element || hasBeenVisibleRef.current) return;
+
+    // Check if element is in viewport
+    const checkVisibility = () => {
+      if (!element || hasBeenVisibleRef.current) return;
+      
+      const rect = element.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      const isInView = rect.top < windowHeight * 0.95 && rect.bottom > windowHeight * 0.05;
+      
+      if (isInView) {
+        setPhraseVisible(true);
+        hasBeenVisibleRef.current = true;
+      }
+    };
+
+    // Check if navigated directly to #contacto
+    const isContactoHash = window.location.hash === '#contacto';
+    
+    // Immediate checks - critical for hash navigation
+    if (isContactoHash) {
+      checkVisibility();
+    }
+    
+    // Additional checks with requestAnimationFrame
+    requestAnimationFrame(() => {
+      checkVisibility();
+      requestAnimationFrame(checkVisibility);
+    });
+
+    // Fallback timeouts
+    const timer1 = setTimeout(checkVisibility, 100);
+    const timer2 = setTimeout(checkVisibility, 200);
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && !hasBeenVisibleRef.current) {
             setPhraseVisible(true);
+            hasBeenVisibleRef.current = true;
           }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.05, rootMargin: '0px 0px -10% 0px' }
     );
 
     observer.observe(element);
 
+    // Hash change handler - for navbar anchor clicks
+    const handleHashChange = () => {
+      if (window.location.hash === '#contacto') {
+        requestAnimationFrame(() => {
+          checkVisibility();
+          setTimeout(checkVisibility, 150);
+          setTimeout(checkVisibility, 300);
+          setTimeout(checkVisibility, 500);
+        });
+      }
+    };
+
+    // Scroll handler
+    const handleScroll = () => {
+      requestAnimationFrame(checkVisibility);
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Later check for smooth scroll completion
+    const laterCheck = setTimeout(checkVisibility, 600);
+
     return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(laterCheck);
       observer.disconnect();
+      window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 

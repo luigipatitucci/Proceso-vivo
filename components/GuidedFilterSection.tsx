@@ -68,24 +68,45 @@ export default function GuidedFilterSection() {
 
   // Header reveal animation
   useEffect(() => {
+    if (!headerRef.current) return;
+
+    // Check if element is already in viewport
+    const checkVisibility = () => {
+      const rect = headerRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      if (rect.top < windowHeight * 0.9 && rect.bottom > 0) {
+        setHeaderVisible(true);
+      }
+    };
+
+    // Initial check
+    setTimeout(checkVisibility, 100);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setHeaderVisible(true);
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.1, rootMargin: '0px 0px -10% 0px' }
     );
 
-    if (headerRef.current) {
-      observer.observe(headerRef.current);
-    }
+    observer.observe(headerRef.current);
+
+    // Re-check on hash change
+    const handleHashChange = () => {
+      setTimeout(checkVisibility, 300);
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
 
     return () => {
       if (headerRef.current) {
         observer.unobserve(headerRef.current);
       }
       observer.disconnect();
+      window.removeEventListener('hashchange', handleHashChange);
     };
   }, []);
 

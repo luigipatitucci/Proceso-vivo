@@ -10,24 +10,42 @@ export default function Hero() {
 
   useEffect(() => {
     const element = sectionRef.current;
+    if (!element) return;
+
+    // Check if element is already in viewport
+    const checkVisibility = () => {
+      const rect = element.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      if (rect.top < windowHeight * 0.9 && rect.bottom > 0) {
+        setIsVisible(true);
+      }
+    };
+
+    // Initial check for direct navigation
+    setTimeout(checkVisibility, 100);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.1, rootMargin: '0px 0px -10% 0px' }
     );
 
-    if (element) {
-      observer.observe(element);
-    }
+    observer.observe(element);
+
+    // Re-check on hash change
+    const handleHashChange = () => {
+      setTimeout(checkVisibility, 300);
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
 
     return () => {
-      if (element) {
-        observer.unobserve(element);
-      }
+      observer.unobserve(element);
       observer.disconnect();
+      window.removeEventListener('hashchange', handleHashChange);
     };
   }, []);
 

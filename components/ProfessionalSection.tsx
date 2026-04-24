@@ -13,6 +13,37 @@ export default function ProfessionalSection() {
   const quoteRef = useRef<HTMLQuoteElement>(null);
 
   useEffect(() => {
+    // Check if elements are already in viewport
+    const checkVisibility = () => {
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      
+      if (imageRef.current) {
+        const rect = imageRef.current.getBoundingClientRect();
+        if (rect.top < windowHeight * 0.9 && rect.bottom > 0) {
+          setImageVisible(true);
+        }
+      }
+      
+      if (contentRef.current) {
+        const rect = contentRef.current.getBoundingClientRect();
+        if (rect.top < windowHeight * 0.9 && rect.bottom > 0) {
+          setContentVisible(true);
+        }
+      }
+      
+      if (quoteRef.current) {
+        const rect = quoteRef.current.getBoundingClientRect();
+        if (rect.top < windowHeight * 0.9 && rect.bottom > 0) {
+          setQuoteVisible(true);
+        }
+      }
+    };
+
+    // Initial check
+    setTimeout(checkVisibility, 100);
+
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -10% 0px' };
+
     const imageObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -21,7 +52,7 @@ export default function ProfessionalSection() {
           }
         });
       },
-      { threshold: 0.2 }
+      observerOptions
     );
 
     const contentObserver = new IntersectionObserver(
@@ -32,7 +63,7 @@ export default function ProfessionalSection() {
           }
         });
       },
-      { threshold: 0.2 }
+      observerOptions
     );
 
     const quoteObserver = new IntersectionObserver(
@@ -43,17 +74,25 @@ export default function ProfessionalSection() {
           }
         });
       },
-      { threshold: 0.3 }
+      observerOptions
     );
 
     if (imageRef.current) imageObserver.observe(imageRef.current);
     if (contentRef.current) contentObserver.observe(contentRef.current);
     if (quoteRef.current) quoteObserver.observe(quoteRef.current);
 
+    // Re-check on hash change
+    const handleHashChange = () => {
+      setTimeout(checkVisibility, 300);
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+
     return () => {
       imageObserver.disconnect();
       contentObserver.disconnect();
       quoteObserver.disconnect();
+      window.removeEventListener('hashchange', handleHashChange);
     };
   }, []);
 

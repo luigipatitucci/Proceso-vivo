@@ -11,6 +11,30 @@ export default function MethodSection() {
   const rightRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Check if elements are already in viewport
+    const checkVisibility = () => {
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      
+      if (leftRef.current) {
+        const rect = leftRef.current.getBoundingClientRect();
+        if (rect.top < windowHeight * 0.9 && rect.bottom > 0) {
+          setLeftVisible(true);
+        }
+      }
+      
+      if (rightRef.current) {
+        const rect = rightRef.current.getBoundingClientRect();
+        if (rect.top < windowHeight * 0.9 && rect.bottom > 0) {
+          setRightVisible(true);
+        }
+      }
+    };
+
+    // Initial check
+    setTimeout(checkVisibility, 100);
+
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -10% 0px' };
+
     const leftObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -19,7 +43,7 @@ export default function MethodSection() {
           }
         });
       },
-      { threshold: 0.2 }
+      observerOptions
     );
 
     const rightObserver = new IntersectionObserver(
@@ -30,15 +54,23 @@ export default function MethodSection() {
           }
         });
       },
-      { threshold: 0.2 }
+      observerOptions
     );
 
     if (leftRef.current) leftObserver.observe(leftRef.current);
     if (rightRef.current) rightObserver.observe(rightRef.current);
 
+    // Re-check on hash change
+    const handleHashChange = () => {
+      setTimeout(checkVisibility, 300);
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+
     return () => {
       leftObserver.disconnect();
       rightObserver.disconnect();
+      window.removeEventListener('hashchange', handleHashChange);
     };
   }, []);
 
