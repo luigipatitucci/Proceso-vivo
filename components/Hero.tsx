@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import styles from './Hero.module.css';
 
 export default function Hero() {
@@ -58,13 +59,21 @@ export default function Hero() {
           </div>
         </div>
         <div className={`${styles.visual} reveal-scale-fade reveal-delay-2 ${isVisible ? 'is-visible' : ''}`}>
-          <div className={styles.visualComposition}>
-            <div className={styles.organicShape1}></div>
-            <div className={styles.organicShape2}></div>
-            <div className={styles.organicShape3}></div>
-            <div className={styles.textureLayer}></div>
-            <div className={styles.accentLine}></div>
-            <div className={styles.gradientOverlay}></div>
+          <div className={styles.heroImageComposition}>
+            <div className={styles.heroAccentShape}></div>
+            <div className={styles.heroImageWrapper}>
+              <Image
+                src="/images/header-image.png"
+                alt="Proceso Vivo - Psicología en Integración"
+                width={900}
+                height={1050}
+                quality={100}
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 45vw, (max-width: 1280px) 40vw, 42vw"
+                className={styles.heroImage}
+                priority
+              />
+              <div className={styles.imageOverlay}></div>
+            </div>
           </div>
         </div>
       </div>

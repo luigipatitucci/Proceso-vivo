@@ -77,7 +77,7 @@ export default function ProfessionalSection() {
                 <div className={styles.accentShape}></div>
                 <div className={styles.imageFrame}>
                   <Image
-                    src="/images/Maria.jpeg"
+                    src="/images/profile-maria.jpeg"
                     alt="María del Castillo - Psicóloga en integración y bioenergía"
                     width={460}
                     height={575}
@@ -121,7 +121,8 @@ export default function ProfessionalSection() {
                 className={`${styles.quote} reveal-fade-up reveal-delay-4 ${quoteVisible ? 'is-visible' : ''}`}
               >
                 <p className={styles.quoteText}>
-                  "No se trata de convencer a nadie de nada. Se trata de acompañar a quien está listo para hacer un trabajo real consigo mismo."
+                  "No vine a convencer a nadie de mi valor.<br />
+                  Vine a reconocerlo primero en mí."
                 </p>
               </blockquote>
 
