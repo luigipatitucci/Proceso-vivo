@@ -3,6 +3,7 @@ import { Poppins } from 'next/font/google';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
+import FloatingSectionNav from '@/components/FloatingSectionNav';
 import './globals.css';
 
 const poppins = Poppins({
@@ -29,6 +30,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <WhatsAppButton />
+        <FloatingSectionNav />
       </body>
     </html>
   );

@@ -129,6 +129,15 @@
   display: block;
 }
 
+/* Premium framing adjustments for first two images */
+.deviceImage[data-image-index="0"] {
+  object-position: center 45%;
+}
+
+.deviceImage[data-image-index="1"] {
+  object-position: 48% center;
+}
+
 /* Overlays for different therapy types */
 .imageOverlay {
   position: absolute;
@@ -193,6 +202,15 @@
   object-fit: cover;
   display: block;
   transition: transform 0.3s ease;
+}
+
+/* Premium framing adjustments for first two thumbnails */
+.thumbnailImage[data-image-index="0"] {
+  object-position: center 45%;
+}
+
+.thumbnailImage[data-image-index="1"] {
+  object-position: 48% center;
 }
 
 .thumbnail:hover .thumbnailImage {

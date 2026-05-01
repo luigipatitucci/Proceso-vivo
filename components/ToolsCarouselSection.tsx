@@ -73,6 +73,7 @@ export default function ToolsCarouselSection() {
 
   return (
     <section 
+      id="herramientas"
       ref={sectionRef}
       className={`${styles.section} ${isVisible ? styles.visible : ''}`}
     >

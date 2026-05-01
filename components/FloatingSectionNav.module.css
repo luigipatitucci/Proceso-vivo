@@ -1,0 +1,394 @@
+/* Desktop Navigation */
+.desktopNav {
+  position: fixed;
+  right: calc(var(--spacing-base) * 2);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 900;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.desktopNav.visible {
+  opacity: 1;
+}
+
+.navList {
+  list-style: none;
+  margin: 0;
+  padding: calc(var(--spacing-base) * 1.5) calc(var(--spacing-base) * 0.25);
+  background: transparent;
+  backdrop-filter: none;
+  border-radius: 24px;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing-base) * 1.25);
+  min-width: auto;
+  width: 6px;
+  position: relative;
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              padding 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              background 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              backdrop-filter 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              gap 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Vertical track line in collapsed state */
+.navList::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 85%;
+  background: linear-gradient(
+    180deg,
+    rgba(42, 85, 64, 0.08) 0%,
+    rgba(42, 85, 64, 0.12) 50%,
+    rgba(42, 85, 64, 0.08) 100%
+  );
+  border-radius: 2px;
+  opacity: 1;
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Hide track line when expanded */
+.desktopNav.expanded .navList::before {
+  opacity: 0;
+}
+
+/* Expanded state */
+.desktopNav.expanded .navList {
+  padding: calc(var(--spacing-base) * 1) calc(var(--spacing-base) * 1);
+  width: auto;
+  min-width: 150px;
+  gap: calc(var(--spacing-base) * 0.375);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(42, 85, 64, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.navItem {
+  margin: 0;
+  padding: 0;
+  transition: height 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              margin 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Hide inactive items in collapsed state */
+.desktopNav:not(.expanded) .navItem {
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin: 0;
+}
+
+/* Show only active item in collapsed state */
+.desktopNav:not(.expanded) .navItem:has(.navButton.active) {
+  height: auto;
+  opacity: 1;
+  overflow: visible;
+}
+
+.navButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing-base) * 0.625);
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: #5a5a5a;
+  transition: padding 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              background 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              justify-content 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 10px;
+  white-space: nowrap;
+  width: 100%;
+  text-align: left;
+  overflow: hidden;
+}
+
+/* Collapsed state button - minimal */
+.desktopNav:not(.expanded) .navButton {
+  padding: 0;
+  background: transparent;
+}
+
+/* Expanded state for button */
+.desktopNav.expanded .navButton {
+  padding: calc(var(--spacing-base) * 0.5) calc(var(--spacing-base) * 0.75);
+  justify-content: flex-start;
+}
+
+.desktopNav.expanded .navButton:hover {
+  background: rgba(42, 85, 64, 0.08);
+  color: var(--color-accent);
+  transition: background 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navButton:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.desktopNav.expanded .navButton.active {
+  color: var(--color-accent);
+  background: rgba(42, 85, 64, 0.12);
+  font-weight: 500;
+}
+
+/* Dot indicator */
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #b8b8b8;
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              height 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              background 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  flex-shrink: 0;
+}
+
+/* Collapsed state - active dot styling */
+.desktopNav:not(.expanded) .navButton.active .dot {
+  width: 10px;
+  height: 10px;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(42, 85, 64, 0.15),
+              0 2px 6px rgba(42, 85, 64, 0.25);
+}
+
+/* Expanded state - dot hover and active states */
+.desktopNav.expanded .navButton:hover .dot {
+  background: var(--color-accent);
+  transform: scale(1.15);
+}
+
+.desktopNav.expanded .navButton.active .dot {
+  background: var(--color-accent);
+  transform: scale(1.25);
+  box-shadow: 0 0 0 2px rgba(42, 85, 64, 0.2);
+}
+
+/* Label - visible in expanded state, hidden in collapsed */
+.label {
+  opacity: 0;
+  max-width: 0;
+  overflow: hidden;
+  transform: translateX(-8px);
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s,
+              max-width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s,
+              margin 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  line-height: 1.3;
+}
+
+/* Show labels when expanded */
+.desktopNav.expanded .label {
+  opacity: 1;
+  max-width: 200px;
+  margin-left: calc(var(--spacing-base) * 0.25);
+  transform: translateX(0);
+}
+
+/* Mobile Navigation */
+.mobileNav {
+  display: none;
+}
+
+.mobileToggle {
+  position: fixed;
+  bottom: 24px;
+  left: 20px;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing-base) * 0.5);
+  padding: calc(var(--spacing-base) * 0.75) calc(var(--spacing-base) * 1.125);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(42, 85, 64, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--color-accent);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.mobileNav.visible .mobileToggle {
+  opacity: 1;
+}
+
+.mobileToggle:active {
+  transform: scale(0.96);
+}
+
+.menuIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.mobileToggleText {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Mobile Overlay */
+.mobileOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 950;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Mobile Menu */
+.mobileMenu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 960;
+  background: #ffffff;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
+  animation: slideUp 0.3s ease;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.mobileMenuHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(var(--spacing-base) * 1.5) calc(var(--spacing-base) * 2);
+  border-bottom: 1px solid rgba(42, 85, 64, 0.1);
+}
+
+.mobileMenuTitle {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2b2b2b;
+  letter-spacing: 0.02em;
+}
+
+.mobileCloseButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: #5a5a5a;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mobileCloseButton svg {
+  width: 16px;
+  height: 16px;
+}
+
+.mobileCloseButton:active {
+  background: rgba(42, 85, 64, 0.08);
+}
+
+.mobileMenuList {
+  list-style: none;
+  margin: 0;
+  padding: calc(var(--spacing-base) * 1) 0;
+}
+
+.mobileMenuItem {
+  width: 100%;
+  text-align: left;
+  padding: calc(var(--spacing-base) * 1.125) calc(var(--spacing-base) * 2);
+  background: transparent;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: #3a3a3a;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.mobileMenuItem:active {
+  background: rgba(42, 85, 64, 0.06);
+}
+
+.mobileMenuItem.active {
+  color: var(--color-accent);
+  font-weight: 500;
+  background: rgba(42, 85, 64, 0.06);
+  border-left-color: var(--color-accent);
+}
+
+/* Tablet and up - show desktop nav */
+@media (min-width: 768px) {
+  .desktopNav {
+    display: block;
+  }
+
+  .mobileNav {
+    display: none !important;
+  }
+}
+
+/* Mobile only - hide mobile floating nav */
+@media (max-width: 767px) {
+  .desktopNav {
+    display: none !important;
+  }
+
+  .mobileNav {
+    display: none !important;
+  }
+}
+
+/* Larger desktop - increase right spacing */
+@media (min-width: 1440px) {
+  .desktopNav {
+    right: calc(var(--spacing-base) * 3.5);
+  }
+}

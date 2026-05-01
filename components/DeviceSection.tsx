@@ -36,22 +36,22 @@ const tabsContent: TabContent[] = [
 
 const deviceImages = [
   {
-    src: '/images/ChatGPT Image 21 abr 2026, 22_40_25.png',
+    src: '/images/ChatGPT Image 29 abr 2026, 19_41_07.png',
     alt: 'Dispositivo terapéutico utilizado en las sesiones',
     overlay: 'blue'
   },
   {
-    src: '/images/ChatGPT Image 21 abr 2026, 22_45_53.png',
+    src: '/images/ChatGPT Image 29 abr 2026, 19_43_05.png',
     alt: 'Detalle del dispositivo de audioterapia',
     overlay: 'blue'
   },
   {
-    src: '/images/ChatGPT Image 21 abr 2026, 22_46_10.png',
+    src: '/images/ChatGPT Image 29 abr 2026, 19_28_43.png',
     alt: 'Dispositivo de cromoterapia en uso',
     overlay: 'magenta'
   },
   {
-    src: '/images/ChatGPT Image 21 abr 2026, 22_47_59.png',
+    src: '/images/ChatGPT Image 29 abr 2026, 19_30_40.png',
     alt: 'Vista del dispositivo terapéutico',
     overlay: 'green'
   }
@@ -135,6 +135,7 @@ export default function DeviceSection() {
                   width={800}
                   height={600}
                   className={styles.deviceImage}
+                  data-image-index={activeImage}
                   priority={activeImage === 0}
                 />
                 <div 
@@ -159,6 +160,7 @@ export default function DeviceSection() {
                       width={200}
                       height={150}
                       className={styles.thumbnailImage}
+                      data-image-index={index}
                     />
                   </div>
                 </button>

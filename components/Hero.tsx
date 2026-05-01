@@ -50,7 +50,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={sectionRef} className={styles.hero}>
+    <section id="inicio" ref={sectionRef} className={styles.hero}>
       <div className={styles.container}>
         <div className={styles.content}>
           <span className={`${styles.eyebrow} reveal-fade-up ${isVisible ? 'is-visible' : ''}`}>
@@ -63,9 +63,10 @@ export default function Hero() {
             <span className={styles.emphasis}>para que deje de repetirse</span>
           </h1>
           <p className={`${styles.description} reveal-fade-up reveal-delay-2 ${isVisible ? 'is-visible' : ''}`}>
-            Cuando entender no alcanza, es momento de integrar. Un proceso que trabaja 
-            sobre patrones profundos: en el cuerpo, en la psique, en lo que no se dice 
-            pero se sostiene.
+            Cuando entender no alcanza,
+es momento de integrar.
+Proceso Vivo trabaja lo profundo:
+cuerpo, emoción y conciencia.
           </p>
           <div className={`${styles.actions} reveal-fade-up reveal-delay-3 ${isVisible ? 'is-visible' : ''}`}>
             <a href="#metodo" className={styles.primaryCta}>

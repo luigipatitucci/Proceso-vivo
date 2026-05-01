@@ -4,6 +4,21 @@ import { useState } from 'react';
 import Image from 'next/image';
 import styles from './Navbar.module.css';
 
+interface NavLink {
+  id: string;
+  label: string;
+}
+
+const mobileNavLinks: NavLink[] = [
+  { id: 'inicio', label: 'Inicio' },
+  { id: 'metodo', label: 'Método' },
+  { id: 'para-quien', label: 'Es para mí' },
+  { id: 'herramientas', label: 'Herramientas' },
+  { id: 'profesional', label: 'Quién acompaña' },
+  { id: 'servicios', label: 'Formas de trabajo' },
+  { id: 'contacto', label: 'Contacto' },
+];
+
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -13,6 +28,22 @@ export default function Navbar() {
 
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const offset = 80; // Account for fixed navbar
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+
+      closeMobileMenu();
+    }
   };
 
   return (
@@ -55,15 +86,15 @@ export default function Navbar() {
 
       <div className={`${styles.mobileMenu} ${mobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
         <div className={styles.mobileMenuContent}>
-          <a href="#metodo" className={styles.mobileLink} onClick={closeMobileMenu}>
-            El método
-          </a>
-          <a href="#profesional" className={styles.mobileLink} onClick={closeMobileMenu}>
-            Quién acompaña
-          </a>
-          <a href="#contacto" className={styles.mobileLink} onClick={closeMobileMenu}>
-            Contacto
-          </a>
+          {mobileNavLinks.map((link) => (
+            <button
+              key={link.id}
+              onClick={() => scrollToSection(link.id)}
+              className={styles.mobileLink}
+            >
+              {link.label}
+            </button>
+          ))}
         </div>
       </div>
 

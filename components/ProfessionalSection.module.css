@@ -79,7 +79,7 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: calc(var(--spacing-base) * 5);
+  gap: calc(var(--spacing-base) * 6);
   align-items: start;
 }
 
@@ -98,7 +98,7 @@
 
 .imageContainer {
   position: relative;
-  max-width: 460px;
+  max-width: 440px;
   margin: 0 auto;
 }
 
@@ -109,11 +109,11 @@
 
 .accentShape {
   position: absolute;
-  top: -16px;
-  right: -16px;
-  width: 140px;
-  height: 140px;
-  background: linear-gradient(135deg, rgba(195, 51, 139, 0.15) 0%, rgba(42, 85, 64, 0.12) 100%);
+  top: -24px;
+  right: -24px;
+  width: 130px;
+  height: 130px;
+  background: linear-gradient(135deg, rgba(195, 51, 139, 0.10) 0%, rgba(42, 85, 64, 0.08) 100%);
   border-radius: 48% 52% 48% 52%;
   z-index: -1;
   animation: floatGentle 20s ease-in-out infinite;
@@ -123,30 +123,31 @@
 .imageFrame {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 5;
-  border-radius: 16px;
+  aspect-ratio: 2 / 3;
+  border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(42, 85, 64, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08);
-  background: #ffffff;
+  box-shadow: 0 6px 24px rgba(42, 85, 64, 0.12), 0 3px 8px rgba(0, 0, 0, 0.06);
+  background: linear-gradient(180deg, #faf8f4 0%, #f6f4f0 100%);
   transition: box-shadow 0.5s ease, transform 0.5s ease;
 }
 
 .imageFrame:hover {
-  box-shadow: 0 12px 40px rgba(42, 85, 64, 0.18), 0 6px 16px rgba(0, 0, 0, 0.1);
-  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(42, 85, 64, 0.14), 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(0px);
 }
 
 .professionalImage {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
+  object-fit: contain;
+  object-position: center center;
   display: block;
+  border-radius: 10px;
   transition: transform 0.6s ease;
 }
 
 .imageFrame:hover .professionalImage {
-  transform: scale(1.02);
+  transform: scale(1.005);
 }
 
 /* Subtle overlay gradient */
@@ -156,7 +157,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(180deg, rgba(42, 85, 64, 0.02) 0%, rgba(0, 0, 0, 0.04) 100%);
+  background: linear-gradient(180deg, rgba(42, 85, 64, 0.01) 0%, rgba(0, 0, 0, 0.02) 100%);
   pointer-events: none;
 }
 
@@ -308,12 +309,13 @@
 
   .grid {
     grid-template-columns: 1fr 1fr;
-    gap: calc(var(--spacing-base) * 7);
+    gap: calc(var(--spacing-base) * 8);
     align-items: center;
   }
 
   .imageContainer {
     margin: 0;
+    max-width: 420px;
   }
 
   .professional {
@@ -354,23 +356,23 @@
   }
 
   .grid {
-    gap: calc(var(--spacing-base) * 9);
+    gap: calc(var(--spacing-base) * 10);
   }
 
   .imageContainer {
-    max-width: 500px;
+    max-width: 480px;
   }
 
   .accentShape {
-    width: 160px;
-    height: 160px;
-    top: -20px;
-    right: -20px;
+    width: 150px;
+    height: 150px;
+    top: -28px;
+    right: -28px;
   }
 
   .imageFrame {
-    border-radius: 18px;
-    box-shadow: 0 12px 40px rgba(42, 85, 64, 0.18), 0 6px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 24px;
+    box-shadow: 0 8px 28px rgba(42, 85, 64, 0.14), 0 4px 10px rgba(0, 0, 0, 0.07);
   }
 
   .name {
