@@ -116,11 +116,11 @@ export default function ProfessionalSection() {
                 <div className={styles.accentShape}></div>
                 <div className={styles.imageFrame}>
                   <Image
-                    src="/images/profile-maria.png"
+                    src="/images/proceso_vivo_optimized.jpg"
                     alt="María del Castillo - Psicóloga en integración y bioenergía"
-                    width={460}
-                    height={575}
+                    fill
                     className={styles.professionalImage}
+                    style={{ objectFit: 'cover', objectPosition: 'center' }}
                     priority
                   />
                   <div className={styles.imageOverlay}></div>
@@ -166,7 +166,7 @@ export default function ProfessionalSection() {
               </blockquote>
 
               <div className={styles.credentials}>
-                <p className={styles.credentialItem}>Formación en psicología (UCA)</p>
+                <p className={styles.credentialItem}>Formación en Psicología - Universidad Kennedy</p>
                 <p className={styles.credentialItem}>Especialización en abordajes integrativos</p>
                 <p className={styles.credentialItem}>Trabajo con enfoque corporal y energético</p>
               </div>

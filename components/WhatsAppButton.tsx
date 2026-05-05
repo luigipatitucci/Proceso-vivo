@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import styles from './WhatsAppButton.module.css';
+import { trackEvent } from '../utils/analytics';
 
 const AUTO_TOOLTIP_STORAGE_KEY = 'whatsapp_tooltip_dismissed';
 
@@ -40,6 +41,10 @@ export default function WhatsAppButton() {
     sessionStorage.setItem(AUTO_TOOLTIP_STORAGE_KEY, 'true');
   };
 
+  const handleWhatsAppClick = () => {
+    trackEvent('click_whatsapp', 'engagement', 'floating_whatsapp_button');
+  };
+
   const phoneNumber = '5491134810707';
   const message = encodeURIComponent('Hola María, me gustaría consultar sobre el proceso.');
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
@@ -51,6 +56,7 @@ export default function WhatsAppButton() {
       rel="noopener noreferrer"
       className={`${styles.button} ${isVisible ? styles.visible : ''}`}
       aria-label="Contactar por WhatsApp"
+      onClick={handleWhatsAppClick}
     >
       {/* WhatsApp Icon */}
       <svg

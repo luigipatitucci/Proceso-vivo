@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import styles from './FinalCtaSection.module.css';
+import { trackEvent } from '../utils/analytics';
 
 type RequirementKey = 'active' | 'time' | 'openness';
 
@@ -122,6 +123,10 @@ export default function FinalCtaSection() {
     };
   }, []);
 
+  const handleContactClick = () => {
+    trackEvent('click_contact', 'engagement', 'contact_cta_button');
+  };
+
   const activeContent = requirements.find(req => req.key === activeRequirement) || requirements[0];
 
   return (
@@ -189,7 +194,11 @@ export default function FinalCtaSection() {
             Si sentís que estás en este momento, y algo de lo que leíste resonó con vos, podemos empezar a conversar.
           </p>
           
-          <a href="mailto:maria.delcastiloo@gmail.com" className={styles.primaryCta}>
+          <a 
+            href="mailto:maria.delcastiloo@gmail.com" 
+            className={styles.primaryCta}
+            onClick={handleContactClick}
+          >
             Escribir para consultar
           </a>
           
